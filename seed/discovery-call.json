@@ -1,0 +1,236 @@
+{
+  "slug": "customer-discovery-call",
+  "title": "Customer Discovery Call: Northwind Logistics",
+  "source": "meet",
+  "recorded_at": "2026-10-22T16:30:00Z",
+  "participants": [
+    {
+      "key": "ethan",
+      "name": "Ethan Cole",
+      "role": "Product Manager",
+      "color": "#4338CA",
+      "voice_hint": "male, thoughtful, mid-30s"
+    },
+    {
+      "key": "nadia",
+      "name": "Nadia Ibrahim",
+      "role": "Customer Success Manager",
+      "color": "#0F766E",
+      "voice_hint": "female, warm, early 30s"
+    },
+    {
+      "key": "robert",
+      "name": "Robert Alvarez",
+      "role": "Director of Operations, Northwind Logistics",
+      "color": "#BE123C",
+      "voice_hint": "male, gravelly, steady, 50s"
+    }
+  ],
+  "segments": [
+    {
+      "p": "nadia",
+      "text": "Hi Robert, thanks so much for joining. I'm Nadia, your customer success manager, and this is Ethan from our product team."
+    },
+    {
+      "p": "ethan",
+      "text": "Hi Robert, great to meet you. I'm really grateful for the time. Mostly I want to listen today and learn how your team works."
+    },
+    {
+      "p": "robert",
+      "text": "Happy to help. Fair warning, I've got a hard stop in about thirty minutes, so I'll try to be efficient."
+    },
+    {
+      "p": "ethan",
+      "text": "That's plenty. Let's start simple. Can you walk me through what a normal day looks like for your dispatch team?"
+    },
+    {
+      "p": "robert",
+      "text": "Sure. We run about two hundred trucks across the Midwest, and every morning my dispatchers rebuild the day's routes by hand from three different spreadsheets."
+    },
+    {
+      "p": "ethan",
+      "text": "Three spreadsheets. What's in each one?"
+    },
+    {
+      "p": "robert",
+      "text": "One has customer orders, one has driver availability, and one has maintenance schedules. None of them talk to each other."
+    },
+    {
+      "p": "nadia",
+      "text": "And how long does that rebuild take each morning?"
+    },
+    {
+      "p": "robert",
+      "text": "Usually two to three hours. By the time routes go out, we're already behind on the first deliveries."
+    },
+    {
+      "p": "ethan",
+      "text": "That's a big chunk of the day. What happens when something changes after the routes go out?"
+    },
+    {
+      "p": "robert",
+      "text": "That's the real headache. A driver calls in sick or a truck breaks down, and my dispatchers start calling people and rewriting the plan on the fly."
+    },
+    {
+      "p": "robert",
+      "text": "Last month a single breakdown cost us four late deliveries and one very unhappy grocery customer."
+    },
+    {
+      "p": "nadia",
+      "text": "I remember that escalation. It came through our support queue."
+    },
+    {
+      "p": "robert",
+      "text": "Right. That one hurt."
+    },
+    {
+      "p": "ethan",
+      "text": "If you could wave a wand, what would the ideal morning look like?"
+    },
+    {
+      "p": "robert",
+      "text": "Routes build themselves from the order system, and when something changes, my team gets a suggested fix they can approve with one click."
+    },
+    {
+      "p": "ethan",
+      "text": "So the human stays in control, but the busywork disappears."
+    },
+    {
+      "p": "robert",
+      "text": "Exactly. I don't want a black box making decisions. I want a smart assistant that my dispatchers trust."
+    },
+    {
+      "p": "nadia",
+      "text": "That's very consistent with what other logistics customers have told us."
+    },
+    {
+      "p": "ethan",
+      "text": "Can I ask about the approval part? Who would need to sign off on a route change today?"
+    },
+    {
+      "p": "robert",
+      "text": "Usually the shift supervisor. For anything over a certain cost, say a hundred and fifty dollars in extra mileage, it comes to me."
+    },
+    {
+      "p": "ethan",
+      "text": "That's interesting. So approvals are tiered by cost."
+    },
+    {
+      "p": "robert",
+      "text": "Yes, and if your tool can't handle that, it's not going to work for us."
+    },
+    {
+      "p": "ethan",
+      "text": "Understood. I'm writing that down as a hard requirement, tiered approvals based on cost."
+    },
+    {
+      "p": "nadia",
+      "text": "Robert, what other tools does your team rely on that we'd need to connect with?"
+    },
+    {
+      "p": "robert",
+      "text": "We use a fleet telematics platform for truck locations, and an old but reliable order management system."
+    },
+    {
+      "p": "robert",
+      "text": "If we can't pull data from both, you're asking my team to type everything in again, and they won't do that."
+    },
+    {
+      "p": "ethan",
+      "text": "That makes sense. Do you have an engineer or an administrator who could help us with the technical setup?"
+    },
+    {
+      "p": "robert",
+      "text": "I have one very patient person named Dana in our IT group. I can introduce you."
+    },
+    {
+      "p": "nadia",
+      "text": "That would be wonderful. I'll follow up with Dana after this call."
+    },
+    {
+      "p": "ethan",
+      "text": "One more question. How do you measure success for your team today?"
+    },
+    {
+      "p": "robert",
+      "text": "On time delivery rate, mostly. We're at ninety-one percent right now, and my goal is ninety-six by the end of next year."
+    },
+    {
+      "p": "ethan",
+      "text": "And how much of the gap do you think comes from late route changes?"
+    },
+    {
+      "p": "robert",
+      "text": "More than half, honestly. The morning rebuild and the mid-day scrambles are where we lose most of it."
+    },
+    {
+      "p": "nadia",
+      "text": "Then there's a clear link between what we're discussing and the outcome you care about."
+    },
+    {
+      "p": "robert",
+      "text": "That's why I agreed to this call. If this works, I can make the case to my executives."
+    },
+    {
+      "p": "ethan",
+      "text": "That's really helpful. What would you need to see to feel confident in a pilot?"
+    },
+    {
+      "p": "robert",
+      "text": "A small pilot with one depot, maybe thirty trucks, for about six weeks, with a clear way to compare against our current numbers."
+    },
+    {
+      "p": "nadia",
+      "text": "We can absolutely set that up. I'll draft a pilot plan and send it to you by next Friday."
+    },
+    {
+      "p": "ethan",
+      "text": "And I'll send you a short prototype of the approval flow next week, so you can tell us if we got the tiers right."
+    },
+    {
+      "p": "robert",
+      "text": "That would be great. Honestly, this is the first vendor call where somebody asked about my day instead of pitching me."
+    },
+    {
+      "p": "ethan",
+      "text": "That means a lot, Robert. Thank you for being so open with us."
+    },
+    {
+      "p": "nadia",
+      "text": "We'll be in touch soon. Have a great rest of your day."
+    }
+  ],
+  "action_items": [
+    {
+      "task": "Draft the Northwind pilot plan for one depot and send it to Robert",
+      "assignee": "nadia",
+      "priority": "high",
+      "due_date": "2026-10-30",
+      "completed": false,
+      "source_seq": 38
+    },
+    {
+      "task": "Send Robert a prototype of the cost based approval flow",
+      "assignee": "ethan",
+      "priority": "medium",
+      "due_date": "2026-10-30",
+      "completed": false,
+      "source_seq": 39
+    },
+    {
+      "task": "Follow up with Dana in IT about telematics and order system access",
+      "assignee": "nadia",
+      "priority": "medium",
+      "due_date": "2026-10-28",
+      "completed": false,
+      "source_seq": 29
+    }
+  ],
+  "clips": [
+    {
+      "title": "Why morning route rebuilds cost Northwind so much",
+      "start_seq": 8,
+      "end_seq": 11
+    }
+  ]
+}

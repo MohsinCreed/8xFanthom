@@ -1,0 +1,601 @@
+{
+  "slug": "q4-launch-readiness-sync",
+  "title": "Q4 Launch Readiness Sync",
+  "source": "zoom",
+  "recorded_at": "2026-10-28T15:00:00Z",
+  "participants": [
+    {
+      "key": "maya",
+      "name": "Maya Chen",
+      "role": "Product Manager",
+      "color": "#4338CA",
+      "voice_hint": "female, warm, mid-30s"
+    },
+    {
+      "key": "daniel",
+      "name": "Daniel Okafor",
+      "role": "Engineering Lead",
+      "color": "#0F766E",
+      "voice_hint": "male, deep, calm, 40s"
+    },
+    {
+      "key": "sofia",
+      "name": "Sofia Reyes",
+      "role": "Product Designer",
+      "color": "#BE123C",
+      "voice_hint": "female, bright, late 20s"
+    },
+    {
+      "key": "liam",
+      "name": "Liam Brennan",
+      "role": "QA Lead",
+      "color": "#B45309",
+      "voice_hint": "male, friendly, Irish-leaning, 30s"
+    },
+    {
+      "key": "aisha",
+      "name": "Aisha Rahman",
+      "role": "Marketing Lead",
+      "color": "#6D28D9",
+      "voice_hint": "female, confident, energetic, mid-30s"
+    },
+    {
+      "key": "marcus",
+      "name": "Marcus Webb",
+      "role": "Support Lead",
+      "color": "#0369A1",
+      "voice_hint": "male, relaxed, mid-40s"
+    },
+    {
+      "key": "hiro",
+      "name": "Hiro Tanaka",
+      "role": "Data Analyst",
+      "color": "#4D7C0F",
+      "voice_hint": "male, soft-spoken, analytical, late 20s"
+    },
+    {
+      "key": "priya",
+      "name": "Priya Nair",
+      "role": "Customer Success Manager",
+      "color": "#475569",
+      "voice_hint": "female, upbeat, early 30s"
+    }
+  ],
+  "segments": [
+    {
+      "p": "maya",
+      "text": "Okay, I think everyone is here, so let's get started. Thanks for making time. This is our launch readiness sync for Workflow Automations."
+    },
+    {
+      "p": "maya",
+      "text": "We have about twelve minutes. The plan is to review carryovers, walk through readiness area by area, and leave with clear decisions."
+    },
+    {
+      "p": "daniel",
+      "text": "Sounds good. Can we make sure we leave a few minutes at the end for the date conversation? I suspect that's where we'll spend our time."
+    },
+    {
+      "p": "maya",
+      "text": "Yes, that's the last agenda item. Let's start with carryovers from last week. Liam, how did the desktop regression suite go?"
+    },
+    {
+      "p": "liam",
+      "text": "That one's done. All four hundred desktop cases are automated and running nightly, and the last three runs were fully green."
+    },
+    {
+      "p": "maya",
+      "text": "Great, I'll mark that complete. Sofia, the empty state designs?"
+    },
+    {
+      "p": "sofia",
+      "text": "Finished and handed off on Tuesday. Daniel's team already has the final assets, including the dark mode variants."
+    },
+    {
+      "p": "maya",
+      "text": "Hiro, you had the tracking plan draft."
+    },
+    {
+      "p": "hiro",
+      "text": "Done as well. The plan covers eighteen events, and I shared it in the launch channel last Thursday for review."
+    },
+    {
+      "p": "maya",
+      "text": "Perfect. Three carryovers closed. Now let's go through readiness. Daniel, engineering first. Where are we?"
+    },
+    {
+      "p": "daniel",
+      "text": "Core build is feature complete on web. Creating, editing, and scheduling automations all work, and performance is solid."
+    },
+    {
+      "p": "daniel",
+      "text": "We load tested with five thousand concurrent automation runs, and the median run time stayed under two seconds."
+    },
+    {
+      "p": "maya",
+      "text": "That's a great number. What about mobile?"
+    },
+    {
+      "p": "daniel",
+      "text": "Mobile is the soft spot. Viewing automations works well, but editing on mobile is rough, and it's where most of our open bugs are."
+    },
+    {
+      "p": "liam",
+      "text": "Can I jump in on that? Mobile is also my biggest worry from the testing side."
+    },
+    {
+      "p": "maya",
+      "text": "Please, Liam."
+    },
+    {
+      "p": "liam",
+      "text": "Our mobile end to end tests are flaky. About one run in four fails for reasons that aren't real bugs, mostly timing issues with the editor."
+    },
+    {
+      "p": "liam",
+      "text": "So when the suite goes red, I can't tell if we broke something or if it's just noise."
+    },
+    {
+      "p": "daniel",
+      "text": "And that's with a team spending half their week on it. I don't want to pretend that's a quick fix."
+    },
+    {
+      "p": "sofia",
+      "text": "Is it the drag and drop interaction in the workflow builder? That's a tricky one on touch screens."
+    },
+    {
+      "p": "liam",
+      "text": "Exactly that. The test runner struggles to simulate the drag, so steps fail randomly."
+    },
+    {
+      "p": "daniel",
+      "text": "I'll flag that as our first real risk. Flaky mobile tests mean we can't fully trust our signal on that platform."
+    },
+    {
+      "p": "maya",
+      "text": "Agreed, I'll note it as risk number one. Let's park the fix for a second and cover the other areas. Sofia, design status?"
+    },
+    {
+      "p": "sofia",
+      "text": "Design is complete for launch scope. The only open item is a small polish pass on the schedule picker, which I can finish in two days."
+    },
+    {
+      "p": "sofia",
+      "text": "Though, if we cut mobile editing, I'd want to adjust the mobile screens to make view only feel intentional rather than broken."
+    },
+    {
+      "p": "maya",
+      "text": "Good point, hold that thought. Aisha, marketing."
+    },
+    {
+      "p": "aisha",
+      "text": "We're in good shape. The launch email is drafted, the landing page is in review, and the demo video is edited and waiting on one last voiceover."
+    },
+    {
+      "p": "aisha",
+      "text": "The press embargo lifts the morning of the twelfth, so I need a firm date soon."
+    },
+    {
+      "p": "maya",
+      "text": "Understood. What's missing from your side?"
+    },
+    {
+      "p": "aisha",
+      "text": "The final changelog copy depends on what actually ships. If features move, I have to rewrite parts of the email, and that takes a couple of days."
+    },
+    {
+      "p": "maya",
+      "text": "That's helpful context for the scope conversation. Marcus, support readiness?"
+    },
+    {
+      "p": "marcus",
+      "text": "Honestly, this is where I'm nervous. Our help articles are published, but the support macros are not ready."
+    },
+    {
+      "p": "marcus",
+      "text": "We need about twelve macros for the most common questions, and so far I've written four."
+    },
+    {
+      "p": "maya",
+      "text": "What's blocking the rest?"
+    },
+    {
+      "p": "marcus",
+      "text": "Mostly my team's time, plus I need to know the final behavior of the scheduling rules before I can write accurate answers."
+    },
+    {
+      "p": "daniel",
+      "text": "The scheduling rules are locked. I can send you the final behavior doc today."
+    },
+    {
+      "p": "maya",
+      "text": "Okay, that's risk number two. Support macros are not ready. Marcus, can you own finishing them?"
+    },
+    {
+      "p": "marcus",
+      "text": "Yes, I'll take it. Give me until November ninth to have all twelve written, reviewed, and live in the help desk."
+    },
+    {
+      "p": "maya",
+      "text": "Perfect, I'll capture that. Hiro, analytics. How are we looking?"
+    },
+    {
+      "p": "hiro",
+      "text": "Mixed. Of the eighteen events in the tracking plan, fourteen are instrumented and flowing into the warehouse."
+    },
+    {
+      "p": "hiro",
+      "text": "The four missing ones are the important ones for us. Automation created, first run completed, automation paused, and template used."
+    },
+    {
+      "p": "aisha",
+      "text": "Is that a launch blocker, or can we backfill later?"
+    },
+    {
+      "p": "hiro",
+      "text": "We can't backfill events that were never captured, so anything missed at launch is gone for good."
+    },
+    {
+      "p": "maya",
+      "text": "That's our third risk, then. Analytics event gaps. Hiro, what would it take to close them?"
+    },
+    {
+      "p": "hiro",
+      "text": "About two days of engineering work to add the events, and one day for me to validate them in the warehouse."
+    },
+    {
+      "p": "daniel",
+      "text": "I can give him an engineer starting Monday. Let's say the events are in the build by November sixth."
+    },
+    {
+      "p": "hiro",
+      "text": "Then I'll validate the same day and confirm in the channel. I'll take the follow up on getting all four events added and verified."
+    },
+    {
+      "p": "maya",
+      "text": "Thank you. Priya, customer success. What are you hearing?"
+    },
+    {
+      "p": "priya",
+      "text": "Customers are excited. We have twelve pilot accounts, and nine of them are using automations weekly, which is higher than we expected."
+    },
+    {
+      "p": "priya",
+      "text": "One thing worth sharing is that every single pilot customer asked for approval steps, so a manager can sign off before an automation runs."
+    },
+    {
+      "p": "maya",
+      "text": "Interesting. Is that in scope for this launch?"
+    },
+    {
+      "p": "priya",
+      "text": "No, but it came up in ten of the twelve calls. One customer, a large logistics company, said they would roll out to their whole team the day approvals ship."
+    },
+    {
+      "p": "sofia",
+      "text": "That's a big signal. I can start exploring the design for approvals while engineering finishes launch work."
+    },
+    {
+      "p": "daniel",
+      "text": "I'd rather we not start another feature until launch is stable, but I agree it belongs on the roadmap."
+    },
+    {
+      "p": "maya",
+      "text": "Okay, let's definitely put approvals at the top of the next quarter's discussion. Priya, are the pilot customers ready for launch communication?"
+    },
+    {
+      "p": "priya",
+      "text": "Almost. I want to email all twelve personally before the public announcement, since they helped shape this."
+    },
+    {
+      "p": "maya",
+      "text": "That's a great touch. Can you own that?"
+    },
+    {
+      "p": "priya",
+      "text": "Yes, I'll send those personal emails by November sixth, so they hear it from us first."
+    },
+    {
+      "p": "maya",
+      "text": "Thank you. Okay, that's the readiness review. Now to the hard conversation: scope and date. Right now we're planning to launch November twelfth."
+    },
+    {
+      "p": "daniel",
+      "text": "I'll be direct. With the mobile editor in its current state, I don't think November twelfth is realistic if we ship everything."
+    },
+    {
+      "p": "daniel",
+      "text": "I'd rather slip the launch by one week to November nineteenth and ship the full scope properly."
+    },
+    {
+      "p": "maya",
+      "text": "I hear you. My concern is that we've told customers and press November twelfth, and a slip has real cost."
+    },
+    {
+      "p": "aisha",
+      "text": "I agree with Maya. The embargo, the webinar invitations, and the partner newsletter are all locked to the twelfth."
+    },
+    {
+      "p": "aisha",
+      "text": "If we move, I'm re-coordinating with six different partners, and some won't be able to move."
+    },
+    {
+      "p": "daniel",
+      "text": "I understand the cost. But shipping a mobile editor we can't properly test is also a cost."
+    },
+    {
+      "p": "liam",
+      "text": "From a quality view, I can't sign off on mobile editing. With the flaky tests, I can't say it's safe."
+    },
+    {
+      "p": "maya",
+      "text": "Okay, so what if we change the question? What if we keep the date but cut the scope?"
+    },
+    {
+      "p": "sofia",
+      "text": "Meaning mobile editing becomes view only at launch?"
+    },
+    {
+      "p": "maya",
+      "text": "Exactly. Customers can build and edit automations on desktop, and on mobile they can view them, run them, and pause them."
+    },
+    {
+      "p": "daniel",
+      "text": "That works for me. It removes most of the risky code and most of the open bugs."
+    },
+    {
+      "p": "liam",
+      "text": "And it shrinks my mobile test surface by about half. I can sign off on that."
+    },
+    {
+      "p": "priya",
+      "text": "Customers mostly build on desktop anyway. In our pilot, ninety percent of edits happened on a laptop."
+    },
+    {
+      "p": "hiro",
+      "text": "That matches the data. Mobile edits were under eight percent of all edits during the pilot."
+    },
+    {
+      "p": "marcus",
+      "text": "That also cuts the number of support macros I need, because most mobile editing questions go away."
+    },
+    {
+      "p": "aisha",
+      "text": "And the changelog barely changes, I just reword the mobile section. That's a few hours, not a few days."
+    },
+    {
+      "p": "maya",
+      "text": "It sounds like we have consensus. Let me state it clearly. We keep the launch date of November twelfth, and we cut mobile editing from launch scope."
+    },
+    {
+      "p": "daniel",
+      "text": "Agreed. We'll ship mobile editing as a fast follow once the tests are stable."
+    },
+    {
+      "p": "maya",
+      "text": "Good. That's decision number one. Now, Sofia, you mentioned the mobile screens."
+    },
+    {
+      "p": "sofia",
+      "text": "Yes. I'll redesign the mobile automation screen so view only has clear labels and a friendly note that editing is coming soon."
+    },
+    {
+      "p": "maya",
+      "text": "Can you have that to engineering by November fifth?"
+    },
+    {
+      "p": "maya",
+      "text": "Thanks. Next, the rollout approach. I'm nervous about turning this on for every customer at once."
+    },
+    {
+      "p": "daniel",
+      "text": "Same here. I'd suggest a staged rollout. Twenty percent of customers on launch day, then everyone one week later if the metrics look healthy."
+    },
+    {
+      "p": "hiro",
+      "text": "I like that. A twenty percent cohort gives us enough volume to spot problems quickly, and I can set up a dashboard for it."
+    },
+    {
+      "p": "aisha",
+      "text": "From a marketing view, I'd still announce on the twelfth. The message becomes rolling out now, available to everyone next week."
+    },
+    {
+      "p": "maya",
+      "text": "Great. So decision number two. We launch to twenty percent of customers on November twelfth, and move to a hundred percent on November nineteenth, assuming the metrics hold."
+    },
+    {
+      "p": "liam",
+      "text": "One question. What counts as healthy metrics? I want us to agree before launch, not after."
+    },
+    {
+      "p": "hiro",
+      "text": "I'd propose an error rate under one percent, no increase in support tickets per active account, and automation run success above ninety-eight percent."
+    },
+    {
+      "p": "marcus",
+      "text": "Fine from support. Though I'd add that if ticket volume doubles, we pause the rollout."
+    },
+    {
+      "p": "maya",
+      "text": "Good addition. Hiro, can you write those thresholds down in a short rollout criteria doc?"
+    },
+    {
+      "p": "hiro",
+      "text": "Sure, I'll write that up and share it with everyone by November eighth."
+    },
+    {
+      "p": "maya",
+      "text": "Thank you. Now let's tie the risks together. Marcus, the macros are the one I'm most worried about, since they have a hard dependency on launch."
+    },
+    {
+      "p": "marcus",
+      "text": "Right. If the macros aren't live, I can't responsibly support a launch, even at twenty percent."
+    },
+    {
+      "p": "daniel",
+      "text": "That sounds like a go or no go condition to me."
+    },
+    {
+      "p": "maya",
+      "text": "I agree. Let's make it formal. We hold a go or no go check on Monday, November tenth, and we only launch if the macros are live, the analytics events are verified, and mobile is stable in view only mode."
+    },
+    {
+      "p": "liam",
+      "text": "I'd add that the desktop regression suite has to be green on the Monday morning run."
+    },
+    {
+      "p": "maya",
+      "text": "Yes, desktop regression green is part of the checklist. That's decision number three."
+    },
+    {
+      "p": "maya",
+      "text": "Liam, since the mobile tests remain flaky, what can we do about them before launch?"
+    },
+    {
+      "p": "liam",
+      "text": "With editing cut, I can quarantine the drag and drop tests and keep the rest running. That gives us a reliable signal on view only."
+    },
+    {
+      "p": "daniel",
+      "text": "And my team will stabilize the editor tests properly after launch, so mobile editing can come back with confidence."
+    },
+    {
+      "p": "liam",
+      "text": "Then I'll take the cleanup of the mobile suite. I'll quarantine the flaky tests and get three consecutive green runs by November fifth."
+    },
+    {
+      "p": "maya",
+      "text": "Great. Aisha, what do you need from us to finalize the launch materials?"
+    },
+    {
+      "p": "aisha",
+      "text": "Just the final scope, which we now have. I'll update the changelog and the launch email for view only mobile and send drafts to everyone by November seventh."
+    },
+    {
+      "p": "maya",
+      "text": "Perfect. And I'll handle the roadmap side. I'll update the public roadmap to show mobile editing as coming soon, and approvals as under consideration."
+    },
+    {
+      "p": "priya",
+      "text": "Careful with approvals. I'd say we're exploring it, because customers will hold us to anything we promise."
+    },
+    {
+      "p": "maya",
+      "text": "Fair. Exploring it is. I'll make the roadmap update and send a summary of today's decisions by end of day tomorrow."
+    },
+    {
+      "p": "maya",
+      "text": "Okay, before we wrap, let me recap. Three decisions. Keep November twelfth and cut mobile editing from launch."
+    },
+    {
+      "p": "maya",
+      "text": "Roll out to twenty percent on the twelfth and everyone on the nineteenth. And hold a go or no go check on November tenth."
+    },
+    {
+      "p": "maya",
+      "text": "Three risks. Flaky mobile tests, support macros, and analytics event gaps. Each of them now has an owner and a date."
+    },
+    {
+      "p": "maya",
+      "text": "I'll post it in the launch channel after this call. Anything else before we close?"
+    },
+    {
+      "p": "priya",
+      "text": "Just a thank you to everyone. The pilot customers are going to love this."
+    },
+    {
+      "p": "maya",
+      "text": "Thank you all. Great meeting, and let's have a smooth launch."
+    }
+  ],
+  "action_items": [
+    {
+      "task": "Finish automating the desktop regression suite and get it running nightly",
+      "assignee": "liam",
+      "priority": "medium",
+      "due_date": "2026-10-27",
+      "completed": true,
+      "source_seq": 4
+    },
+    {
+      "task": "Hand off final empty state designs including dark mode variants",
+      "assignee": "sofia",
+      "priority": "medium",
+      "due_date": "2026-10-27",
+      "completed": true,
+      "source_seq": 6
+    },
+    {
+      "task": "Draft the analytics tracking plan and share it for review",
+      "assignee": "hiro",
+      "priority": "medium",
+      "due_date": "2026-10-23",
+      "completed": true,
+      "source_seq": 8
+    },
+    {
+      "task": "Quarantine flaky mobile drag and drop tests and get three consecutive green runs",
+      "assignee": "liam",
+      "priority": "high",
+      "due_date": "2026-11-05",
+      "completed": false,
+      "source_seq": 99
+    },
+    {
+      "task": "Get all four missing analytics events added and verified in the warehouse",
+      "assignee": "hiro",
+      "priority": "high",
+      "due_date": "2026-11-06",
+      "completed": false,
+      "source_seq": 46
+    },
+    {
+      "task": "Write, review, and publish all twelve support macros in the help desk",
+      "assignee": "marcus",
+      "priority": "high",
+      "due_date": "2026-11-09",
+      "completed": false,
+      "source_seq": 37
+    },
+    {
+      "task": "Email all twelve pilot customers personally before the public announcement",
+      "assignee": "priya",
+      "priority": "medium",
+      "due_date": "2026-11-06",
+      "completed": false,
+      "source_seq": 57
+    },
+    {
+      "task": "Redesign mobile automation screens for a clear view only experience",
+      "assignee": "sofia",
+      "priority": "medium",
+      "due_date": "2026-11-05",
+      "completed": false,
+      "source_seq": 78
+    },
+    {
+      "task": "Update changelog and launch email for view only mobile and send drafts",
+      "assignee": "aisha",
+      "priority": "medium",
+      "due_date": "2026-11-07",
+      "completed": false,
+      "source_seq": 101
+    }
+  ],
+  "clips": [
+    {
+      "title": "Keeping the launch date by cutting mobile editing",
+      "start_seq": 74,
+      "end_seq": 76
+    },
+    {
+      "title": "Risk: flaky mobile tests undermine our signal",
+      "start_seq": 16,
+      "end_seq": 19
+    },
+    {
+      "title": "Every pilot customer is asking for approval steps",
+      "start_seq": 49,
+      "end_seq": 52
+    }
+  ]
+}
