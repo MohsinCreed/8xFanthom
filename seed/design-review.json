@@ -1,0 +1,271 @@
+{
+  "slug": "onboarding-design-review",
+  "title": "Onboarding Flow Design Review",
+  "source": "zoom",
+  "recorded_at": "2026-10-24T17:00:00Z",
+  "participants": [
+    {
+      "key": "elena",
+      "name": "Elena Vasquez",
+      "role": "Product Designer",
+      "color": "#4338CA",
+      "voice_hint": "female, expressive, early 30s"
+    },
+    {
+      "key": "noah",
+      "name": "Noah Patel",
+      "role": "Product Manager",
+      "color": "#0F766E",
+      "voice_hint": "male, clear, mid-30s"
+    },
+    {
+      "key": "grace",
+      "name": "Grace Kim",
+      "role": "Software Engineer",
+      "color": "#BE123C",
+      "voice_hint": "female, direct, late 20s"
+    },
+    {
+      "key": "omar",
+      "name": "Omar Haddad",
+      "role": "UX Researcher",
+      "color": "#B45309",
+      "voice_hint": "male, measured, 40s"
+    }
+  ],
+  "segments": [
+    {
+      "p": "noah",
+      "text": "Thanks for joining, everyone. Today we're reviewing the new onboarding flow, and I'd like us to decide what ships in the first release."
+    },
+    {
+      "p": "elena",
+      "text": "I'll walk through the prototype first, and then we can dig into feedback. It's a four step flow instead of the current seven."
+    },
+    {
+      "p": "elena",
+      "text": "Step one is account basics, step two is connecting a data source, step three is inviting teammates, and step four is picking a template."
+    },
+    {
+      "p": "grace",
+      "text": "That's a big reduction. Which steps did you remove?"
+    },
+    {
+      "p": "elena",
+      "text": "Mostly the profile questions. We were asking for job title, company size, and industry up front, and I moved those to after the first success."
+    },
+    {
+      "p": "omar",
+      "text": "That lines up with what we saw in research. In our last round, five of eight participants hesitated at the company size question."
+    },
+    {
+      "p": "noah",
+      "text": "Did anyone say why?"
+    },
+    {
+      "p": "omar",
+      "text": "A few said they weren't sure how it would be used, and a couple said it felt like a sales form instead of a product."
+    },
+    {
+      "p": "elena",
+      "text": "Right, so I'm trying to make the first few minutes feel like getting value, not filling out paperwork."
+    },
+    {
+      "p": "grace",
+      "text": "From an engineering view, removing those fields makes our life easier. Fewer validations and fewer edge cases."
+    },
+    {
+      "p": "noah",
+      "text": "Good. Let's talk about step two, connecting a data source. That seems like the highest friction moment."
+    },
+    {
+      "p": "omar",
+      "text": "It is. In testing, three participants stalled there for more than two minutes, because they didn't have credentials handy."
+    },
+    {
+      "p": "elena",
+      "text": "I designed a sample data option for that. If you don't have credentials, you can explore with demo data first."
+    },
+    {
+      "p": "grace",
+      "text": "That's something I need to look at. How realistic should the demo data be?"
+    },
+    {
+      "p": "elena",
+      "text": "Realistic enough to show the product's value. Maybe a hundred sample records with a few charts already built."
+    },
+    {
+      "p": "noah",
+      "text": "I love that idea, but I'm worried about scope. Can we ship it in this release?"
+    },
+    {
+      "p": "grace",
+      "text": "I think so. I can reuse the fixtures we built for testing. It's about three days of work, including the toggle to clear demo data later."
+    },
+    {
+      "p": "noah",
+      "text": "Great, then let's include it. Grace, can you own that?"
+    },
+    {
+      "p": "grace",
+      "text": "Yes, I'll take it. I'll aim to have it in the staging build by November third."
+    },
+    {
+      "p": "elena",
+      "text": "Perfect. Now, step three, inviting teammates. I added a skip option because research showed people don't always want to invite anyone immediately."
+    },
+    {
+      "p": "omar",
+      "text": "That matches what we heard. Several participants said they wanted to try it alone first."
+    },
+    {
+      "p": "noah",
+      "text": "But from a growth view, invites are our best loop. If we make skipping too easy, we lose that."
+    },
+    {
+      "p": "elena",
+      "text": "That's a fair concern. What if skipping is allowed, but we bring back a gentle prompt after the first successful result?"
+    },
+    {
+      "p": "noah",
+      "text": "I could live with that. Let's test whether the later prompt works better than the early one."
+    },
+    {
+      "p": "omar",
+      "text": "I can set up a quick test with six users. If we recruit this week, I can have findings by November sixth."
+    },
+    {
+      "p": "noah",
+      "text": "That would be really useful. Thanks, Omar."
+    },
+    {
+      "p": "grace",
+      "text": "One question on the template picker. Are the templates static, or will they be personalized?"
+    },
+    {
+      "p": "elena",
+      "text": "Static for now. We have six templates, and I'd like to rank them by the use case people choose earlier."
+    },
+    {
+      "p": "grace",
+      "text": "That's fine, but we don't capture the use case anymore if we cut the profile questions."
+    },
+    {
+      "p": "elena",
+      "text": "Good catch. I think we need one lightweight question, what are you trying to do, with four choices, before step two."
+    },
+    {
+      "p": "omar",
+      "text": "I'd support that. It's a goal question, not a demographic question, and people tend to answer those more willingly."
+    },
+    {
+      "p": "noah",
+      "text": "Okay, agreed. Elena, can you add that to the prototype?"
+    },
+    {
+      "p": "elena",
+      "text": "Yes, I'll update the prototype this week and share it with the team by Wednesday."
+    },
+    {
+      "p": "grace",
+      "text": "While we're on it, accessibility. I noticed the progress indicator relies only on color to show the current step."
+    },
+    {
+      "p": "elena",
+      "text": "You're right, I missed that. I'll add numbers and labels so it works for color blind users and screen readers."
+    },
+    {
+      "p": "noah",
+      "text": "Please make sure that's included in the Wednesday update."
+    },
+    {
+      "p": "elena",
+      "text": "Will do."
+    },
+    {
+      "p": "omar",
+      "text": "Quick thing on copy. Several participants misread the word workspace as a file folder. Can we try project instead?"
+    },
+    {
+      "p": "elena",
+      "text": "Interesting. I'll test both labels in the next round with Omar."
+    },
+    {
+      "p": "noah",
+      "text": "Good. Let's talk timing. If Grace builds the demo data, and Elena updates the prototype, can engineering start the flow next week?"
+    },
+    {
+      "p": "grace",
+      "text": "Yes, as long as I have the final designs by Wednesday. Then I'd estimate two weeks to build and one week to polish."
+    },
+    {
+      "p": "noah",
+      "text": "That puts us at a release in late November. I'll update the roadmap and let leadership know the timeline."
+    },
+    {
+      "p": "omar",
+      "text": "I'll also write a short summary of the research findings so we have them in one place for the team."
+    },
+    {
+      "p": "noah",
+      "text": "Great. Any last thoughts before we wrap?"
+    },
+    {
+      "p": "elena",
+      "text": "Just thank you all. This feedback made the flow so much stronger."
+    },
+    {
+      "p": "noah",
+      "text": "Thanks, everyone. Great session."
+    }
+  ],
+  "action_items": [
+    {
+      "task": "Build demo data option and clear toggle for staging",
+      "assignee": "grace",
+      "priority": "high",
+      "due_date": "2026-11-03",
+      "completed": false,
+      "source_seq": 18
+    },
+    {
+      "task": "Run six person test on early versus late teammate invite prompt",
+      "assignee": "omar",
+      "priority": "medium",
+      "due_date": "2026-11-06",
+      "completed": false,
+      "source_seq": 24
+    },
+    {
+      "task": "Update prototype with goal question and accessible progress indicator",
+      "assignee": "elena",
+      "priority": "high",
+      "due_date": "2026-10-29",
+      "completed": false,
+      "source_seq": 32
+    },
+    {
+      "task": "Update the roadmap and tell leadership the late November timeline",
+      "assignee": "noah",
+      "priority": "medium",
+      "due_date": "2026-10-28",
+      "completed": false,
+      "source_seq": 41
+    },
+    {
+      "task": "Write a short summary of research findings for the team",
+      "assignee": "omar",
+      "priority": "low",
+      "due_date": "2026-10-31",
+      "completed": false,
+      "source_seq": 42
+    }
+  ],
+  "clips": [
+    {
+      "title": "Why we cut the profile questions from onboarding",
+      "start_seq": 6,
+      "end_seq": 9
+    }
+  ]
+}

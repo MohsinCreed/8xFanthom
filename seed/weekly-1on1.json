@@ -1,0 +1,191 @@
+{
+  "slug": "weekly-1on1-check-in",
+  "title": "Weekly 1:1 Check-in",
+  "source": "teams",
+  "recorded_at": "2026-10-21T14:00:00Z",
+  "participants": [
+    {
+      "key": "jordan",
+      "name": "Jordan Ellis",
+      "role": "Engineering Manager",
+      "color": "#4338CA",
+      "voice_hint": "male, calm, supportive, late 30s"
+    },
+    {
+      "key": "kayla",
+      "name": "Kayla Morgan",
+      "role": "Software Engineer",
+      "color": "#0F766E",
+      "voice_hint": "female, thoughtful, late 20s"
+    }
+  ],
+  "segments": [
+    {
+      "p": "jordan",
+      "text": "Hey Kayla, how's your week going so far?"
+    },
+    {
+      "p": "kayla",
+      "text": "Pretty good, thanks. A little busy, but in a good way. How about you?"
+    },
+    {
+      "p": "jordan",
+      "text": "Same. Back to back meetings, so I'm glad we get this time. Do you want to start, or should I?"
+    },
+    {
+      "p": "kayla",
+      "text": "I can start. The search indexing project shipped on Friday, and it's already cut query time by about forty percent."
+    },
+    {
+      "p": "jordan",
+      "text": "That's fantastic. I saw the dashboard, and the numbers look great. Congratulations."
+    },
+    {
+      "p": "kayla",
+      "text": "Thanks. Honestly, I learned a lot. I'd never worked that closely with the data team before."
+    },
+    {
+      "p": "jordan",
+      "text": "I noticed. Several people on that team told me how easy you were to work with."
+    },
+    {
+      "p": "kayla",
+      "text": "That's nice to hear. It was a good group."
+    },
+    {
+      "p": "jordan",
+      "text": "How are you feeling about workload right now? Last time you mentioned you felt stretched."
+    },
+    {
+      "p": "kayla",
+      "text": "Better, actually. Finishing the indexing project took a lot off my plate, but I'm still carrying the old billing bug fixes on top of new work."
+    },
+    {
+      "p": "jordan",
+      "text": "Right, those billing fixes have been dragging on. How many are left?"
+    },
+    {
+      "p": "kayla",
+      "text": "Four. Two are quick, and two need real investigation, probably a few days each."
+    },
+    {
+      "p": "jordan",
+      "text": "Let's see if I can find someone to take the two bigger ones. I'll talk to Carlos about that today."
+    },
+    {
+      "p": "kayla",
+      "text": "That would help a lot. Thank you."
+    },
+    {
+      "p": "jordan",
+      "text": "Of course. Now, I want to talk about growth. You said you were interested in technical leadership."
+    },
+    {
+      "p": "kayla",
+      "text": "Yes, I am. I'm not sure I want to manage people yet, but I'd love to lead a project from start to finish."
+    },
+    {
+      "p": "jordan",
+      "text": "That's a really reasonable path. Leading the mobile notifications project could be a good first step."
+    },
+    {
+      "p": "kayla",
+      "text": "I'd love that. What would it involve?"
+    },
+    {
+      "p": "jordan",
+      "text": "You'd write the design document, coordinate with two other engineers and a designer, and present progress in the weekly planning meeting."
+    },
+    {
+      "p": "kayla",
+      "text": "That sounds exciting and a bit scary. In a good way."
+    },
+    {
+      "p": "jordan",
+      "text": "That's usually the right mix. Why don't you draft a one page proposal, and we'll review it together next week?"
+    },
+    {
+      "p": "kayla",
+      "text": "Sure, I can have that ready by Monday."
+    },
+    {
+      "p": "jordan",
+      "text": "Perfect. Is there anything about the team or the process that's frustrating you?"
+    },
+    {
+      "p": "kayla",
+      "text": "One thing. Code reviews sometimes sit for two or three days, and it slows everything down."
+    },
+    {
+      "p": "jordan",
+      "text": "Yes, I've heard that from others too. What would help?"
+    },
+    {
+      "p": "kayla",
+      "text": "Maybe a rotating reviewer each day, so everybody knows who's responsible for picking up new requests."
+    },
+    {
+      "p": "jordan",
+      "text": "I like that. Could you write up a short proposal and post it in the team channel? I'll support it in the next standup."
+    },
+    {
+      "p": "kayla",
+      "text": "Okay, I'll post it by Thursday."
+    },
+    {
+      "p": "jordan",
+      "text": "Great. One more thing from me. I'd like you to practice presenting at the all hands in November, just a five minute demo of the search work."
+    },
+    {
+      "p": "kayla",
+      "text": "Oh, wow. Okay. I think I can do that."
+    },
+    {
+      "p": "jordan",
+      "text": "You'll do great. I can help you rehearse the week before if that's useful."
+    },
+    {
+      "p": "kayla",
+      "text": "Yes please. I always get nervous before presenting."
+    },
+    {
+      "p": "jordan",
+      "text": "Totally normal. We'll practice until it feels natural. Anything else on your mind?"
+    },
+    {
+      "p": "kayla",
+      "text": "No, I think that covers it. Thanks for making time, Jordan."
+    },
+    {
+      "p": "jordan",
+      "text": "Anytime. Enjoy the rest of your week, and let me know if anything comes up."
+    }
+  ],
+  "action_items": [
+    {
+      "task": "Ask Carlos to take over the two complex billing bug fixes",
+      "assignee": "jordan",
+      "priority": "medium",
+      "due_date": "2026-10-21",
+      "completed": false,
+      "source_seq": 12
+    },
+    {
+      "task": "Draft a one page proposal for leading the mobile notifications project",
+      "assignee": "kayla",
+      "priority": "medium",
+      "due_date": "2026-10-27",
+      "completed": false,
+      "source_seq": 20
+    },
+    {
+      "task": "Post a rotating code reviewer proposal in the team channel",
+      "assignee": "kayla",
+      "priority": "low",
+      "due_date": "2026-10-23",
+      "completed": false,
+      "source_seq": 26
+    }
+  ],
+  "clips": []
+}
