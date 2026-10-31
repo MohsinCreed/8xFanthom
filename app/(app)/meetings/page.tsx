@@ -1,6 +1,9 @@
 import { MeetingList } from "@/components/meetings/MeetingList";
 import { getMeetings } from "@/lib/data";
 
+// Live data (task progress changes); never prerender at build time.
+export const dynamic = "force-dynamic";
+
 export default async function MeetingsPage() {
   const meetings = await getMeetings();
   const count = meetings.length;

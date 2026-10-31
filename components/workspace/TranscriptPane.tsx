@@ -70,8 +70,14 @@ export function TranscriptPane({ segments, participants, className }: Transcript
     };
     c.addEventListener("wheel", off, { passive: true });
     c.addEventListener("touchmove", off, { passive: true });
+    // dragging the scrollbar: pointerdown lands on the container itself, not on a child
+    const onPointerDown = (e: PointerEvent) => {
+      if (e.target === c) off();
+    };
+    c.addEventListener("pointerdown", onPointerDown);
     c.addEventListener("keydown", onKey);
     return () => {
+      c.removeEventListener("pointerdown", onPointerDown);
       c.removeEventListener("wheel", off);
       c.removeEventListener("touchmove", off);
       c.removeEventListener("keydown", onKey);
@@ -133,7 +139,7 @@ export function TranscriptPane({ segments, participants, className }: Transcript
 
   return (
     <div className={cn("relative flex min-h-0 flex-col rounded-md border border-border bg-card", className)}>
-      <div ref={containerRef} className="min-h-0 flex-1 overflow-y-auto">
+      <div ref={containerRef} className="relative min-h-0 flex-1 overflow-y-auto">
         <div className="sticky top-0 z-10 space-y-2 border-b border-border bg-card p-3">
           <div className="relative">
             <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden />

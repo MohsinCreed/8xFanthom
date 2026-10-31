@@ -33,7 +33,7 @@ export function AvatarStack({ participants, max = 5, size = 28, className }: Ava
   return (
     <div className={cn("flex items-center", className)}>
       <span className="sr-only">Participants: {participants.map((p) => p.name).join(", ")}</span>
-      <div aria-hidden="true" className="flex -space-x-2">
+      <div aria-hidden="true" className="flex -space-x-1">
         {shown.map((p, i) => (
           <Avatar key={`${p.name}-${i}`} className="ring-2 ring-background after:hidden" style={box}>
             <AvatarFallback
