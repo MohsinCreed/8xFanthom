@@ -29,6 +29,9 @@
 | D24 | Groq model is `openai/gpt-oss-120b` (not llama-3.3-70b-versatile); seed summaries were generated with it | Chosen by user when configuring `.env.local`; `lib/groq.ts` is the single place the model id lives | llama-3.3-70b-versatile |
 | D25 | Product name is "8x Fathom AI" (sidebar wordmark, page titles, README) | User decision | "Recall" (placeholder) |
 | D26 | `.gitattributes` sets `* text=auto eol=lf` | Stops LF/CRLF warnings on Windows | Per-machine autocrlf |
+| D27 | Chat drawer uses Radix Dialog directly in non-modal mode (no overlay, outside click does not dismiss), not `components/ui/sheet.tsx`; `ChatDrawer` stays mounted so history and streams survive closing | The shared Sheet blocks the player and transcript; users should keep listening while chatting | shadcn Sheet with overlay |
+| D28 | Chat: a stopped (aborted) answer is persisted if it has text, upstream errors persist nothing; pill messages display the pill label while the full prompt is stored; Groq called with `reasoning_effort: "low"` and only `delta.content` forwarded; 12k-token budget drops oldest turns, then falls back to summary plus transcript head/tail | History matches what the user saw; keeps the free tier within limits | Dropping partial answers; showing raw pill prompts |
+| D29 | Phase workflow codified in `CLAUDE.md`: orchestrator plus Sonnet/Haiku sub-agents, human review at the end of each phase (refines D21) | User request | — |
 
 ## Open items
 - None.

@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import type { MeetingWorkspaceData } from "@/lib/types";
+import { AskAiButton, ChatDrawer } from "./ChatDrawer";
 import { PlayerProvider } from "./PlayerProvider";
 import { AudioPlayer } from "./AudioPlayer";
 import { TranscriptPane } from "./TranscriptPane";
@@ -12,6 +14,7 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
   const { meeting, participants, segments, actionItems, clips } = data;
   const chapters = meeting.summary_json?.chapters ?? [];
   const done = actionItems.filter((a) => a.completed).length;
+  const [chatOpen, setChatOpen] = useState(false);
 
   return (
     <PlayerProvider src={meeting.audio_url} duration={meeting.duration} segments={segments}>
@@ -67,6 +70,8 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
           </Tabs>
         </section>
       </div>
+      <AskAiButton open={chatOpen} onOpenChange={setChatOpen} />
+      <ChatDrawer meetingId={meeting.id} open={chatOpen} onOpenChange={setChatOpen} />
     </PlayerProvider>
   );
 }

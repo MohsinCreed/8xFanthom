@@ -33,6 +33,17 @@ Env vars are listed in `.env.example` (Supabase URL + publishable key + secret k
 
 **Route groups.** `app/(app)/` carries the sidebar shell; the public clip page (`/clip/[slug]`) is planned outside the group so it has no sidebar. The meetings list is `force-dynamic` because task progress changes; keep data-backed pages dynamic.
 
+## Phase workflow (orchestrator + sub-agents)
+
+Every new phase is run the same way (decision D21, `context/07-decisions.md`):
+
+1. **Review.** The orchestrator (the main session) reads `context/` and the code the phase touches, then breaks the phase into small tasks with explicit file ownership, interfaces and dependencies. Shared types/contracts are written by the orchestrator *before* dispatch so parallel agents code against the same shapes.
+2. **Delegate.** The orchestrator does not write feature code itself. It dispatches sub-agents with the Agent tool: **Sonnet** for architecture, server routes, streaming, state and anything with logic; **Haiku** for simple UI, pure utilities, copy and docs. Independent tasks go out in one message (parallel waves); dependent tasks wait for the previous wave. Each prompt states the goal, files owned (no overlap between agents), the contract, the project conventions to follow, and what to report back.
+3. **Sub-agent rules.** No commits, no pushes, no reading or printing `.env*` values, no edits outside owned files, no scope creep. On any error, edge case or ambiguity they stop and report instead of guessing.
+4. **Integrate and verify.** The orchestrator reviews each result, runs `npx tsc --noEmit` and `npm run lint`, and has a Sonnet agent run a Playwright check of the phase's interactive behaviour on localhost:3000 before it counts as done.
+5. **Escalate to the human.** Any question, trade-off, failed check the orchestrator can't resolve, or review point goes to the user (AskUserQuestion or a plain summary) rather than being decided silently. Finish each phase with a short review request: what shipped, what was verified, open questions.
+6. **Close out.** Update `context/08-tasks.md` and `context/07-decisions.md`, commit locally on `Dev` (orchestrator only), and keep `.agent-logs/INDEX.md` current.
+
 ## Conventions
 
 - UI: light only. Tokens are in `app/globals.css` (warm canvas `#FAF9F6`, indigo `primary`, emerald only for "done"). Headings use Bricolage Grotesque automatically; use the `tnum` class for timestamps. Small radii; no all-caps labels, tracked eyebrows, monospace tags, `→` arrows, gradient washes, or decorative shadows. Sentence-case, plain-language copy. shadcn/ui primitives live in `components/ui`.

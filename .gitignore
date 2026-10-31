@@ -45,3 +45,6 @@ next-env.d.ts
 # generated audio cache
 .audio-cache/
 !.env.example
+
+# playwright mcp artifacts
+/.playwright-mcp/

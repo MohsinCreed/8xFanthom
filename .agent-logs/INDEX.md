@@ -8,3 +8,4 @@ Raw prompt/response logs are written automatically by `.claude/hooks/capture.js`
 | `2026-10-31_21-11-21_76eb5931-…` | Planning + Phase 0 | Capture test; architecture review of `context/`; context files 03–08; decisions D1–D24; Next.js 15 scaffold; migration `0001_init.sql`; seed JSON via sub-agent; TTS audio (fixed dead voices, custom MP3 duration parser); seed script; Supabase key-format and plugin requirement; Phase 0 wrap-up and commit |
 
 Later sessions are appended below as phases complete.
+| `2026-10-31_22-58-42_167f6844-…` | Phase 3 | Orchestrator plus Sonnet/Haiku sub-agents: prompts, chat API (Groq SSE, persistence), useChat hook, ChatDrawer, Playwright verification, two bug fixes; workflow codified in CLAUDE.md |

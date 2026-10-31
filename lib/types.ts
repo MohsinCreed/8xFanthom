@@ -68,6 +68,23 @@ export interface MeetingListItem extends Meeting {
   clips_count: number;
 }
 
+/** Prompt pills in the chat drawer; prompt text lives in `lib/prompts.ts`. */
+export type PillId = "decisions" | "email" | "risks" | "summary" | "missed";
+
+export interface ChatMessage {
+  id: string;
+  role: "user" | "assistant";
+  content: string;
+  pill: PillId | null;
+  created_at: string;
+}
+
+/** Events streamed by `POST /api/chat` (one JSON object per SSE `data:` line). */
+export type ChatStreamEvent =
+  | { type: "token"; text: string }
+  | { type: "done"; messageId: string }
+  | { type: "error"; code: "rate_limited" | "upstream" | "internal" };
+
 /** Everything the workspace page needs. */
 export interface MeetingWorkspaceData {
   meeting: Meeting;
