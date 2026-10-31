@@ -12,5 +12,5 @@ export default async function MeetingPage({ params }: { params: Promise<{ id: st
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const data = await getMeetingWorkspace(id).catch(() => null);
-  return { title: data ? `${data.meeting.title} | Recall` : "Meeting not found | Recall" };
+  return { title: data ? `${data.meeting.title} | 8x Fathom` : "Meeting not found | 8x Fathom" };
 }

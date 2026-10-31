@@ -12,7 +12,7 @@ export function Wordmark() {
   return (
     <span className="inline-flex items-center gap-2 font-heading text-base font-semibold tracking-tight text-foreground">
       <span aria-hidden="true" className="size-2 rounded-full bg-primary" />
-      Recall
+      8x Fathom AI
     </span>
   );
 }
