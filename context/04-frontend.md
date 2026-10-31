@@ -15,7 +15,7 @@
 | `--warn` | `#B45309` | risk / overdue |
 
 Light only. Speaker colors: 8 distinct, muted, AA-contrast hues on white (indigo, teal, rose, amber, violet, sky, lime, slate); stored per participant.
-Type: Inter (UI) + tabular-nums for timestamps. Radius 10px cards / 999px pills. Shadows subtle (`0 1px 2px rgb(0 0 0 / .05)`).
+Type: Hanken Grotesk (UI) + Bricolage Grotesque (titles/headings), tabular-nums for timestamps. Radius 6px panels / 999px pills; no all-caps labels, no monospace tags. Shadows subtle (`0 1px 2px rgb(0 0 0 / .05)`).
 
 ## Screens
 1. **/meetings** — search input, meeting cards (title, date, duration, avatars stack, task progress `3/7`, source badge).

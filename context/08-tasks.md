@@ -1,7 +1,7 @@
 # Master Task Tracker
 
 - [x] **Phase 0 — Foundation & seeds** (complete: Next.js scaffold, migration applied via Supabase, 4 seeded meetings with TTS audio, summaries generated via Groq): init Next.js 15 + Tailwind + shadcn; `supabase/migrations/0001_init.sql` (see 06); `.gitignore` with `.env*`; env wiring; write seed JSON (hero + 3 short meetings); `scripts/generate-audio.ts` (TTS, stitch, emit timings); `scripts/seed.ts` (idempotent); generate `summary_json` via Groq at seed time.
-- [ ] **Phase 1 — Shell & meetings list:** layout, sidebar, `/meetings` cards, search.
+- [x] **Phase 1 — Shell & meetings list:** layout, sidebar, `/meetings` cards, search.
 - [ ] **Phase 2 — Workspace & player:** `PlayerProvider`, audio player, speaker-band timeline, transcript sync (binary search), click-to-seek, search, speaker filters, summary + chapters.
 - [ ] **Phase 3 — AI chat:** `/api/chat` streaming, persisted history, ChatDrawer, prompt pills, `[mm:ss]` seek links, 429 handling.
 - [ ] **Phase 4 — Action Hub:** board UI, optimistic toggle, assignee picker, source-time seek, `PATCH` route.
