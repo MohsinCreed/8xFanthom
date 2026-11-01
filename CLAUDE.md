@@ -39,10 +39,19 @@ Every new phase is run the same way (decision D21, `context/07-decisions.md`):
 
 1. **Review.** The orchestrator (the main session) reads `context/` and the code the phase touches, then breaks the phase into small tasks with explicit file ownership, interfaces and dependencies. Shared types/contracts are written by the orchestrator *before* dispatch so parallel agents code against the same shapes.
 2. **Delegate.** The orchestrator does not write feature code itself. It dispatches sub-agents with the Agent tool: **Sonnet** for architecture, server routes, streaming, state and anything with logic; **Haiku** for simple UI, pure utilities, copy and docs. Independent tasks go out in one message (parallel waves); dependent tasks wait for the previous wave. Each prompt states the goal, files owned (no overlap between agents), the contract, the project conventions to follow, and what to report back.
-3. **Sub-agent rules.** No commits, no pushes, no reading or printing `.env*` values, no edits outside owned files, no scope creep. On any error, edge case or ambiguity they stop and report instead of guessing.
-4. **Integrate and verify.** The orchestrator reviews each result, runs `npx tsc --noEmit` and `npm run lint`, and has a Sonnet agent run a Playwright check of the phase's interactive behaviour on localhost:3000 before it counts as done.
+3. **Sub-agent rules.** No commits, no pushes, no reading or printing `.env*` values, no edits outside owned files, no scope creep. On any error, edge case or ambiguity they stop and report instead of guessing. Anything an agent starts (dev server, background process, browser) it must stop before reporting back, and its report says what it started and that it stopped it.
+4. **Integrate and verify.** The orchestrator reviews each result, runs `npx tsc --noEmit` and `npm run lint`, and has a Sonnet agent run a Playwright check of the phase's interactive behaviour on localhost:3000 before it counts as done. The verifier starts the dev server only if port 3000 is free, and shuts down what it started when done (see "Cleanup" below).
 5. **Escalate to the human.** Any question, trade-off, failed check the orchestrator can't resolve, or review point goes to the user (AskUserQuestion or a plain summary) rather than being decided silently. Finish each phase with a short review request: what shipped, what was verified, open questions.
 6. **Close out.** Update `context/08-tasks.md` and `context/07-decisions.md`, commit locally on `Dev` (orchestrator only), and keep `.agent-logs/INDEX.md` current.
+
+## Cleanup (processes you start)
+
+Whoever starts a process stops it before finishing, whether that is the orchestrator or a sub-agent. This covers dev servers (`npm run dev`, `next start`), background shells, and the Playwright browser (close it with `browser_close`).
+
+- Before starting a server, check whether port 3000 is already in use. If something else is listening, do not kill it; report it.
+- On Windows, find the owner with `Get-NetTCPConnection -LocalPort 3000 -State Listen` and stop the whole tree with `taskkill /PID <pid> /T /F` (Next spawns child processes, so killing only the parent leaves the port busy). Confirm the port is free afterwards.
+- Remove test data you created (for example QA clips) and confirm the seeded counts are unchanged.
+- Never leave a server running between phases. If one is needed again, start it again.
 
 ## Conventions
 
