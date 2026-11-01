@@ -8,12 +8,14 @@ import { AudioPlayer } from "./AudioPlayer";
 import { TranscriptPane } from "./TranscriptPane";
 import { SummaryPanel } from "./SummaryPanel";
 import { WorkspaceHeader } from "./WorkspaceHeader";
+import { ActionBoard } from "./ActionBoard";
+import { useActionItems } from "@/lib/useActionItems";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
   const { meeting, participants, segments, actionItems, clips } = data;
   const chapters = meeting.summary_json?.chapters ?? [];
-  const done = actionItems.filter((a) => a.completed).length;
+  const actionState = useActionItems(actionItems);
   const [chatOpen, setChatOpen] = useState(false);
 
   return (
@@ -46,7 +48,7 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
               <TabsTrigger value="actions">
                 Action items
                 <span className="tnum ml-1.5 text-xs text-muted-foreground">
-                  {done}/{actionItems.length}
+                  {actionState.done}/{actionState.items.length}
                 </span>
               </TabsTrigger>
               <TabsTrigger value="clips">
@@ -61,8 +63,8 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
                 className="h-full max-h-[75dvh] lg:max-h-none"
               />
             </TabsContent>
-            <TabsContent value="actions" className="overflow-y-auto p-6 text-sm text-muted-foreground">
-              The action board arrives in the next phase.
+            <TabsContent value="actions" className="overflow-y-auto">
+              <ActionBoard state={actionState} participants={participants} />
             </TabsContent>
             <TabsContent value="clips" className="overflow-y-auto p-6 text-sm text-muted-foreground">
               Clip creation and sharing arrive in a later phase.
