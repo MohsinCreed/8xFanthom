@@ -3,7 +3,7 @@
 - [x] **Phase 0 — Foundation & seeds** (complete: Next.js scaffold, migration applied via Supabase, 4 seeded meetings with TTS audio, summaries generated via Groq): init Next.js 15 + Tailwind + shadcn; `supabase/migrations/0001_init.sql` (see 06); `.gitignore` with `.env*`; env wiring; write seed JSON (hero + 3 short meetings); `scripts/generate-audio.ts` (TTS, stitch, emit timings); `scripts/seed.ts` (idempotent); generate `summary_json` via Groq at seed time.
 - [x] **Phase 1 — Shell & meetings list:** layout, sidebar, `/meetings` cards, search.
 - [x] **Phase 2 — Workspace & player:** `PlayerProvider`, audio player, speaker-band timeline, transcript sync (binary search), click-to-seek, search, speaker filters, summary + chapters.
-- [x] **Phase 3 — AI chat** (complete: verified with Playwright on the hero meeting): `/api/chat` streaming, persisted history, ChatDrawer, prompt pills, `[mm:ss]` seek links, 429 handling. Known minor gaps: unclosed `**` shows raw asterisks until it closes; retrying after a server error adds a duplicate user row.
+- [x] **Phase 3 — AI chat** (complete: verified with Playwright on the hero meeting): `/api/chat` streaming, persisted history, ChatDrawer, prompt pills, `[mm:ss]` seek links, 429 handling. Known minor gap: unclosed `**` shows raw asterisks until it closes.
 - [ ] **Phase 4 — Action Hub:** board UI, optimistic toggle, assignee picker, source-time seek, `PATCH` route.
 - [ ] **Phase 5 — Clips:** ClipCreator, `POST /api/clips`, ClipList, `/clip/[slug]` page with OG metadata, seeded clips.
 - [ ] **Phase 6 — Polish & QA:** responsive layout, empty/error states, keyboard shortcuts, a11y pass, end-to-end click-through.

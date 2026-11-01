@@ -13,6 +13,7 @@ const Body = z.object({
   sessionId: z.string().regex(/^[A-Za-z0-9_-]{8,64}$/),
   message: z.string().trim().min(1).max(2000),
   pill: z.enum(["decisions", "email", "risks", "summary", "missed"]).optional(),
+  retry: z.boolean().optional(),
 });
 
 const json = (status: number, error: string, message: string) =>
@@ -39,19 +40,40 @@ function startStream(messages: ReturnType<typeof buildMessages>, signal: AbortSi
 export async function POST(request: Request) {
   const parsed = Body.safeParse(await request.json().catch(() => null));
   if (!parsed.success) return json(400, "bad_request", "Invalid request body.");
-  const { meetingId, sessionId, message, pill } = parsed.data;
+  const { meetingId, sessionId, message, pill, retry } = parsed.data;
 
   const db = getAdminClient();
   let stream: Awaited<ReturnType<typeof startStream>>;
   try {
     const data = await loadMeetingData(db, meetingId);
     if (!data) return json(404, "not_found", "Meeting not found.");
-    const messages = buildMessages(data, await loadHistory(db, meetingId, sessionId), message);
+    let history = await loadHistory(db, meetingId, sessionId);
 
-    const saved = await db.from("chat_messages").insert({
-      meeting_id: meetingId, session_id: sessionId, role: "user", content: message, pill: pill ?? null,
-    });
-    if (saved.error) throw new Error(`persist user: ${saved.error.message}`);
+    // A retry reuses the user row left behind by the failed attempt instead of inserting a duplicate.
+    let reuse = false;
+    if (retry) {
+      const latest = await db
+        .from("chat_messages")
+        .select("role, content, pill")
+        .eq("meeting_id", meetingId)
+        .eq("session_id", sessionId)
+        .order("created_at", { ascending: false })
+        .limit(1)
+        .maybeSingle();
+      if (latest.error) throw new Error(`lookup last: ${latest.error.message}`);
+      const row = latest.data;
+      reuse = !!row && row.role === "user" && row.content === message && (row.pill ?? null) === (pill ?? null);
+    }
+    // The reused row is already the last history turn; buildMessages appends the new message itself.
+    if (reuse) history = history.slice(0, -1);
+    const messages = buildMessages(data, history, message);
+
+    if (!reuse) {
+      const saved = await db.from("chat_messages").insert({
+        meeting_id: meetingId, session_id: sessionId, role: "user", content: message, pill: pill ?? null,
+      });
+      if (saved.error) throw new Error(`persist user: ${saved.error.message}`);
+    }
 
     stream = await startStream(messages, request.signal);
   } catch (e) {

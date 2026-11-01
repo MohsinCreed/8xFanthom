@@ -100,8 +100,8 @@ export function useChat(meetingId: string): UseChat {
     };
   }, [meetingId]);
 
-  const send = useCallback(
-    async (text: string, pill?: PillId) => {
+  const run = useCallback(
+    async (text: string, pill: PillId | undefined, isRetry: boolean) => {
       const trimmed = text.trim();
       if (!trimmed || busy.current) return;
       busy.current = true;
@@ -148,7 +148,7 @@ export function useChat(meetingId: string): UseChat {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ meetingId, sessionId: getSessionId(), message: trimmed, pill }),
+          body: JSON.stringify({ meetingId, sessionId: getSessionId(), message: trimmed, pill, ...(isRetry ? { retry: true } : {}) }),
           signal: ctrl.signal,
         });
         if (!res.ok || !res.body) {
@@ -208,6 +208,8 @@ export function useChat(meetingId: string): UseChat {
     [meetingId],
   );
 
+  const send = useCallback((text: string, pill?: PillId) => run(text, pill, false), [run]);
+
   const stop = useCallback(() => streamAbort.current?.abort(), []);
 
   const retry = useCallback(() => {
@@ -218,8 +220,8 @@ export function useChat(meetingId: string): UseChat {
       while (i >= 0 && all[i].role !== "user") i--;
       return i >= 0 ? all.slice(0, i) : all;
     });
-    void send(prev.text, prev.pill);
-  }, [send]);
+    void run(prev.text, prev.pill, true);
+  }, [run]);
 
   return { messages, status, error, send, stop, retry };
 }
