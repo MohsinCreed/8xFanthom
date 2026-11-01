@@ -99,7 +99,13 @@ export function ClipCreator({ duration, draft, onCreate, onCreated }: ClipCreato
           maxLength={MAX_TITLE_LENGTH}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="What is this moment about?"
+          aria-describedby={trimmedTitle ? undefined : "clip-title-hint"}
         />
+        {trimmedTitle ? null : (
+          <p id="clip-title-hint" className="text-sm text-muted-foreground" aria-live="polite">
+            Title required
+          </p>
+        )}
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <TimeField

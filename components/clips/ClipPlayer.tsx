@@ -108,7 +108,8 @@ function ClipControls({
         </p>
       )}
 
-      <div className="mt-6" aria-label="Clip transcript">
+      <p className="mt-6 text-sm text-muted-foreground">Timestamps are from the full meeting.</p>
+      <div className="mt-3" aria-label="Clip transcript">
         {segments.map((seg, i) => {
           const p = byId.get(seg.participant_id);
           const showSpeaker = i === 0 || segments[i - 1].participant_id !== seg.participant_id;
@@ -136,14 +137,14 @@ function ClipControls({
               <div className="flex items-start gap-3">
                 <button
                   type="button"
-                  aria-label={`Play from ${fmtTime(from - start)}`}
+                  aria-label={`Play from ${fmtTime(seg.start_time)} in the meeting`}
                   onClick={(e) => {
                     e.stopPropagation();
                     jump();
                   }}
                   className="tnum mt-0.5 shrink-0 rounded-sm text-xs leading-relaxed text-muted-foreground hover:text-primary"
                 >
-                  {fmtTime(from - start)}
+                  {fmtTime(seg.start_time)}
                 </button>
                 <p className="max-w-[70ch] text-[15px] leading-relaxed">{seg.text}</p>
               </div>

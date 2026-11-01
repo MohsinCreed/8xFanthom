@@ -55,6 +55,7 @@ Whoever starts a process stops it before finishing, whether that is the orchestr
 
 ## Conventions
 
+- Any UI/UX work (by the orchestrator or a sub-agent) must load the `frontend-design:frontend-design` skill first and apply it within the conventions below. Sub-agent prompts for UI tasks say so explicitly.
 - UI: light only. Tokens are in `app/globals.css` (warm canvas `#FAF9F6`, indigo `primary`, emerald only for "done"). Headings use Bricolage Grotesque automatically; use the `tnum` class for timestamps. Small radii; no all-caps labels, tracked eyebrows, monospace tags, `→` arrows, gradient washes, or decorative shadows. Sentence-case, plain-language copy. shadcn/ui primitives live in `components/ui`.
 - Postgres schema management and Supabase work should go through the Supabase agent plugin; `supabase/migrations/*.sql` stays the source of truth in git.
 - Work on the `Dev` branch and commit locally. Do not push to GitHub unless asked; the user pushes and merges to `main`.
