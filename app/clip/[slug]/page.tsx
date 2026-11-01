@@ -21,14 +21,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!data) return { title: "Clip not found" };
   const { clip, meeting } = data;
   const title = clip.title;
+  const socialTitle = `${clip.title} | 8x Fathom AI`;
   const description = `${meeting.title}, ${fmtTime(clip.end_time - clip.start_time)} clip`;
   const site = process.env.NEXT_PUBLIC_SITE_URL;
   return {
     ...(site ? { metadataBase: new URL(site) } : {}),
     title,
     description,
-    openGraph: { title, description, type: "website", siteName: "8x Fathom" },
-    twitter: { card: "summary", title, description },
+    openGraph: { title: socialTitle, description, type: "website", siteName: "8x Fathom" },
+    twitter: { card: "summary", title: socialTitle, description },
   };
 }
 
