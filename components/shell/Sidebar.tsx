@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { Mic } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { LogOut, Mic } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 
@@ -50,15 +50,34 @@ export function SidebarNav({ onNavigate }: { onNavigate?: () => void }) {
 }
 
 export function UserBlock() {
+  const router = useRouter();
+  async function signOut() {
+    try {
+      await fetch("/api/auth/logout", { method: "POST" });
+    } finally {
+      router.push("/login");
+      router.refresh();
+    }
+  }
   return (
-    <div className="flex items-center gap-3 border-t border-border px-4 py-4">
-      <Avatar className="size-8">
-        <AvatarFallback className="bg-primary-soft text-xs font-medium text-primary">MM</AvatarFallback>
-      </Avatar>
-      <div className="min-w-0">
-        <p className="truncate text-sm font-medium text-foreground">Muhammad Mohsin</p>
-        <p className="truncate text-xs text-muted-foreground">Demo workspace</p>
+    <div className="border-t border-border px-4 py-4">
+      <div className="flex items-center gap-3">
+        <Avatar className="size-8">
+          <AvatarFallback className="bg-primary-soft text-xs font-medium text-primary">MM</AvatarFallback>
+        </Avatar>
+        <div className="min-w-0">
+          <p className="truncate text-sm font-medium text-foreground">Muhammad Mohsin</p>
+          <p className="truncate text-xs text-muted-foreground">Demo workspace</p>
+        </div>
       </div>
+      <button
+        type="button"
+        onClick={signOut}
+        className="mt-3 flex w-full items-center gap-2.5 rounded-md px-2.5 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-sidebar-accent hover:text-foreground max-md:min-h-10"
+      >
+        <LogOut aria-hidden="true" className="size-4" />
+        Sign out
+      </button>
     </div>
   );
 }
