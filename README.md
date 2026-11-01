@@ -9,7 +9,7 @@ A rebuild of [fathom.video](https://fathom.video), the AI meeting notetaker, for
 > The app sits behind a simple demo login (a static cookie, not real security). Shared `/clip/...` links stay public. The login page has a "Fill demo credentials" button.
 
 - **Live app:** <https://8xfanthom.vercel.app/>
-- **Walkthrough video:** `<add Loom link>`
+- **Walkthrough video:** <https://www.loom.com/share/8f9940b6acb043e99ebccc13abef1f02>
 
 **[Explore the full feature list and keyboard shortcuts guide](./FEATURES.md)**, including a step-by-step walkthrough checklist for testing every feature.
 
