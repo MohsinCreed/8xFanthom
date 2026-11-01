@@ -4,7 +4,7 @@
 - [x] **Phase 1 — Shell & meetings list:** layout, sidebar, `/meetings` cards, search.
 - [x] **Phase 2 — Workspace & player:** `PlayerProvider`, audio player, speaker-band timeline, transcript sync (binary search), click-to-seek, search, speaker filters, summary + chapters.
 - [x] **Phase 3 — AI chat** (complete: verified with Playwright on the hero meeting): `/api/chat` streaming, persisted history, ChatDrawer, prompt pills, `[mm:ss]` seek links, 429 handling. Known minor gap: unclosed `**` shows raw asterisks until it closes.
-- [ ] **Phase 4 — Action Hub:** board UI, optimistic toggle, assignee picker, source-time seek, `PATCH` route.
+- [x] **Phase 4 — Action Hub** (complete: verified with Playwright on the hero meeting): board UI with To do / Done groups and progress bar, optimistic toggle with rollback, assignee picker, source-time seek chip, `PATCH /api/action-items/[id]`. Known gap: a page reload while a save is still in flight can drop that change (see D33).
 - [ ] **Phase 5 — Clips:** ClipCreator, `POST /api/clips`, ClipList, `/clip/[slug]` page with OG metadata, seeded clips.
 - [ ] **Phase 6 — Polish & QA:** responsive layout, empty/error states, keyboard shortcuts, a11y pass, end-to-end click-through.
 - [ ] **Phase 7 — Submission:** secret-scan `.agent-logs/`, commit logs, Vercel deploy + env vars, verify live URL, README, Loom walkthrough.

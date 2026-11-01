@@ -38,6 +38,23 @@ export interface ActionItem {
   source_time: number | null;
 }
 
+/** Body of `PATCH /api/action-items/[id]`; at least one field is required. Response: `{ item: ActionItem }`. */
+export interface ActionItemPatch {
+  completed?: boolean;
+  assignee_id?: string | null;
+  priority?: ActionItem["priority"];
+}
+
+/** Return value of `useActionItems` (`lib/useActionItems.ts`). Updates are optimistic and roll back on failure. */
+export interface ActionItemsState {
+  items: ActionItem[];
+  done: number;
+  /** Set when the last update failed and was rolled back; null otherwise. */
+  error: string | null;
+  dismissError: () => void;
+  update: (id: string, patch: ActionItemPatch) => Promise<void>;
+}
+
 export interface Clip {
   id: string;
   meeting_id: string;
