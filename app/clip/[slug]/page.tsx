@@ -11,11 +11,16 @@ export const dynamic = "force-dynamic";
 type Props = { params: Promise<{ slug: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { slug } = await params;
-  const data = await getPublicClip(slug);
-  if (!data) return { title: "Clip not found | 8x Fathom" };
+  let data;
+  try {
+    const { slug } = await params;
+    data = await getPublicClip(slug);
+  } catch {
+    return { title: "Clip" };
+  }
+  if (!data) return { title: "Clip not found" };
   const { clip, meeting } = data;
-  const title = `${clip.title} | 8x Fathom`;
+  const title = clip.title;
   const description = `${meeting.title}, ${fmtTime(clip.end_time - clip.start_time)} clip`;
   const site = process.env.NEXT_PUBLIC_SITE_URL;
   return {

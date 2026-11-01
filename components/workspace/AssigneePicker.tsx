@@ -40,9 +40,9 @@ export function AssigneePicker({ assigneeId, participants, onChange }: AssigneeP
         </button>
       </PopoverTrigger>
       <PopoverContent aria-label="Choose assignee">
-        <ul className="flex flex-col" role="listbox" aria-label="Assignee">
+        <ul className="flex flex-col" aria-label="Assignee">
           {participants.map((p) => (
-            <li key={p.id} role="presentation">
+            <li key={p.id}>
               <OptionButton selected={p.id === assigneeId} onClick={() => choose(p.id)}>
                 <AssigneeAvatar participant={p} small />
                 <span className="flex min-w-0 flex-1 flex-col text-left">
@@ -52,7 +52,7 @@ export function AssigneePicker({ assigneeId, participants, onChange }: AssigneeP
               </OptionButton>
             </li>
           ))}
-          <li role="presentation">
+          <li>
             <OptionButton selected={assigneeId === null} onClick={() => choose(null)}>
               <AssigneeAvatar participant={null} small />
               <span className="flex-1 text-left">Unassigned</span>
@@ -76,8 +76,7 @@ function OptionButton({
   return (
     <button
       type="button"
-      role="option"
-      aria-selected={selected}
+      aria-pressed={selected}
       onClick={onClick}
       className={cn(
         "flex w-full items-center gap-2.5 rounded-md px-2 py-1.5 text-sm outline-none transition-colors hover:bg-muted focus-visible:bg-muted",

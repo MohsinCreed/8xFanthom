@@ -52,6 +52,7 @@ function TranscriptLineImpl({
   return (
     <div
       data-seq={segment.seq}
+      aria-current={active ? "true" : undefined}
       onClick={() => onSeek(segment.start_time)}
       className={cn(
         "group cursor-pointer rounded-md border-l-[3px] px-3 py-1.5",
@@ -76,7 +77,7 @@ function TranscriptLineImpl({
             e.stopPropagation();
             onSeek(segment.start_time);
           }}
-          className="tnum mt-0.5 shrink-0 rounded-sm text-xs leading-relaxed text-muted-foreground hover:text-primary"
+          className="tnum -mx-2 -my-1.5 mt-0 shrink-0 rounded-sm px-2 py-2 text-xs leading-relaxed text-muted-foreground hover:text-primary max-md:-my-2.5 max-md:py-3"
         >
           {fmtTime(segment.start_time)}
         </button>
@@ -92,7 +93,7 @@ function TranscriptLineImpl({
               e.stopPropagation();
               onClip(segment);
             }}
-            className="ml-auto opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+            className="ml-auto opacity-0 transition-opacity group-focus-within:opacity-100 group-hover:opacity-100 focus-visible:opacity-100 max-lg:size-9 [@media(hover:none)]:opacity-100"
           >
             <Scissors />
           </Button>

@@ -55,10 +55,10 @@ export function ActionCard({ item, participants, update }: ActionCardProps) {
         aria-label={`Mark as ${done ? "not done" : "done"}: ${item.task}`}
         onClick={() => void update(item.id, { completed: !done })}
         className={cn(
-          "mt-0.5 flex size-5 shrink-0 items-center justify-center rounded border outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-card",
+          "relative mt-0.5 flex size-5 shrink-0 before:absolute before:-inset-3 before:content-[''] items-center justify-center rounded border outline-none transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-card",
           done
             ? "border-success bg-success text-white"
-            : "border-muted-foreground/60 bg-card hover:border-primary",
+            : "border-muted-foreground bg-card hover:border-primary",
         )}
       >
         {done && <Check className="size-3.5" strokeWidth={3} aria-hidden="true" />}
@@ -90,7 +90,7 @@ export function ActionCard({ item, participants, update }: ActionCardProps) {
               type="button"
               onClick={() => seek(item.source_time as number, { play: true })}
               aria-label={`Jump to ${timeLabel}`}
-              className="tnum rounded-full bg-primary-soft px-2 py-0.5 font-medium text-primary outline-none transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary"
+              className="tnum rounded-full bg-primary-soft px-2 py-0.5 font-medium max-md:inline-flex max-md:min-h-9 max-md:items-center max-md:px-3 text-primary outline-none transition-colors hover:bg-primary hover:text-primary-foreground focus-visible:ring-2 focus-visible:ring-primary"
             >
               {timeLabel}
             </button>

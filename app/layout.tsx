@@ -7,7 +7,7 @@ const hanken = Hanken_Grotesk({ variable: "--font-hanken", subsets: ["latin"] })
 const bricolage = Bricolage_Grotesque({ variable: "--font-bricolage", subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "8x Fathom AI",
+  title: { default: "8x Fathom AI", template: "%s | 8x Fathom AI" },
   description: "Meeting recordings with a synced transcript, action items and shareable clips.",
 };
 

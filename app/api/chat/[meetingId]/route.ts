@@ -18,16 +18,18 @@ export async function GET(request: Request, ctx: { params: Promise<{ meetingId: 
     return Response.json({ error: "bad_request", message: "Invalid request." }, { status: 400 });
   }
 
-  const { data, error } = await getAdminClient()
-    .from("chat_messages")
-    .select("id, role, content, pill, created_at")
-    .eq("meeting_id", parsed.data.meetingId)
-    .eq("session_id", parsed.data.sessionId)
-    .order("created_at", { ascending: true })
-    .limit(100);
-  if (error) {
-    console.error("[api/chat GET]", error);
+  try {
+    const { data, error } = await getAdminClient()
+      .from("chat_messages")
+      .select("id, role, content, pill, created_at")
+      .eq("meeting_id", parsed.data.meetingId)
+      .eq("session_id", parsed.data.sessionId)
+      .order("created_at", { ascending: true })
+      .limit(100);
+    if (error) throw error;
+    return Response.json({ messages: data as ChatMessage[] });
+  } catch (e) {
+    console.error("[api/chat GET]", e);
     return Response.json({ error: "internal", message: "Something went wrong." }, { status: 500 });
   }
-  return Response.json({ messages: data as ChatMessage[] });
 }

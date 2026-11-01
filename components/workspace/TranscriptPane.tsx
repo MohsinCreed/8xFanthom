@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ArrowDown, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { cn } from "@/lib/utils";
+import { cn, isTypingTarget } from "@/lib/utils";
 import type { Participant, Segment } from "@/lib/types";
 import { usePlayer } from "./PlayerProvider";
 import { TranscriptLine } from "./TranscriptLine";
@@ -13,9 +13,17 @@ export interface TranscriptPaneProps {
   participants: Participant[];
   className?: string;
   onClipFromSegment?: (segment: Segment) => void;
+  /** Called before focusing search so the shell can reveal the transcript tab. */
+  onRequestSearchFocus?: () => void;
 }
 
-export function TranscriptPane({ segments, participants, className, onClipFromSegment }: TranscriptPaneProps) {
+export function TranscriptPane({
+  segments,
+  participants,
+  className,
+  onClipFromSegment,
+  onRequestSearchFocus,
+}: TranscriptPaneProps) {
   const { activeIndex, seek } = usePlayer();
   const containerRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -89,14 +97,20 @@ export function TranscriptPane({ segments, participants, className, onClipFromSe
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
+      if (e.defaultPrevented) return;
       const t = e.target;
-      if (t instanceof HTMLElement && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+      if (isTypingTarget(t)) return;
+      if (t instanceof HTMLElement && t.closest('[role="dialog"]')) return;
       e.preventDefault();
-      searchRef.current?.focus();
+      onRequestSearchFocus?.();
+      requestAnimationFrame(() => {
+        if (searchRef.current) searchRef.current.focus();
+        else requestAnimationFrame(() => searchRef.current?.focus());
+      });
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [onRequestSearchFocus]);
 
   const goToMatch = (pos: number) => {
     if (!matches.length) return;
@@ -156,7 +170,7 @@ export function TranscriptPane({ segments, participants, className, onClipFromSe
                 freshQuery.current = true;
               }}
               onKeyDown={onSearchKey}
-              className="pl-8 pr-20"
+              className="pl-8 pr-20 max-md:h-10"
             />
             {q && (
               <span className="tnum pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-xs text-muted-foreground" aria-live="polite">
@@ -164,13 +178,18 @@ export function TranscriptPane({ segments, participants, className, onClipFromSe
               </span>
             )}
           </div>
-          <div className="flex flex-wrap gap-1.5" role="group" aria-label="Filter by speaker">
+          <div
+            className="flex flex-wrap gap-1.5 max-md:flex-nowrap max-md:overflow-x-auto max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden"
+            role="group"
+            aria-label="Filter by speaker"
+            tabIndex={-1}
+          >
             <button
               type="button"
               aria-pressed={filter.size === 0}
               onClick={() => setFilter(new Set())}
               className={cn(
-                "rounded-full border px-2.5 py-1 text-xs",
+                "shrink-0 rounded-full border px-2.5 py-1 text-xs max-md:min-h-9",
                 filter.size === 0 ? "border-primary bg-primary-soft text-primary" : "border-border text-muted-foreground hover:bg-muted",
               )}
             >
@@ -183,7 +202,7 @@ export function TranscriptPane({ segments, participants, className, onClipFromSe
                 aria-pressed={filter.has(p.id)}
                 onClick={() => toggleSpeaker(p.id)}
                 className={cn(
-                  "inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs",
+                  "inline-flex shrink-0 items-center gap-1.5 rounded-full border px-2.5 py-1 text-xs max-md:min-h-9",
                   filter.has(p.id) ? "border-primary bg-primary-soft text-foreground" : "border-border text-muted-foreground hover:bg-muted",
                 )}
               >
@@ -194,10 +213,12 @@ export function TranscriptPane({ segments, participants, className, onClipFromSe
           </div>
         </div>
 
-        {q && matches.length === 0 ? (
+        {segments.length === 0 ? (
+          <p className="px-4 py-10 text-center text-sm text-muted-foreground">No transcript for this meeting yet.</p>
+        ) : q && matches.length === 0 ? (
           <p className="px-4 py-10 text-center text-sm text-muted-foreground">No lines match &ldquo;{query.trim()}&rdquo;</p>
         ) : (
-          <div className="p-2">
+          <div className="p-2 pb-40 lg:pb-28">
             {segments.map((s, i) => {
               const p = byId.get(s.participant_id);
               if (!p) return null;
@@ -227,7 +248,7 @@ export function TranscriptPane({ segments, participants, className, onClipFromSe
         <button
           type="button"
           onClick={jumpLive}
-          className="absolute bottom-4 left-1/2 inline-flex -translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
+          className="absolute bottom-4 left-4 inline-flex lg:left-1/2 lg:-translate-x-1/2 items-center gap-1.5 rounded-full bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90"
         >
           <ArrowDown className="size-4" aria-hidden />
           Jump to live
