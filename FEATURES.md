@@ -4,6 +4,10 @@
 
 The recording bot is stubbed (decision D1). Four meetings are seeded with real synthesized audio, and the hero meeting, "Q4 Launch Readiness Sync", has 8 speakers, 111 transcript segments and about 13.5 minutes of audio. Transcript timestamps come from the measured length of each audio segment, so the text and the sound stay in sync.
 
+> **🔑 Demo credentials**
+> Email: `demo@8xfathom.ai`
+> Password: `fathom2026!`
+
 Back to the [README](./README.md) for setup. Design decisions are logged in [`context/07-decisions.md`](./context/07-decisions.md).
 
 ## Contents
@@ -12,6 +16,7 @@ Back to the [README](./README.md) for setup. Design decisions are logged in [`co
 - [AI meeting intelligence](#ai-meeting-intelligence)
 - [Action hub and task management](#action-hub-and-task-management)
 - [Clips and highlights](#clips-and-highlights)
+- [Demo login](#demo-login)
 - [Mobile, accessibility and error handling](#mobile-accessibility-and-error-handling)
 - [Keyboard shortcuts reference](#keyboard-shortcuts-reference)
 - [Quality control and manual walkthrough checklist](#quality-control-and-manual-walkthrough-checklist)
@@ -81,9 +86,25 @@ Shortcuts are ignored while you are typing in a field or holding Ctrl, Cmd or Al
 
 Left and right arrows do not seek globally. They stay free for tabs, menus and popovers (decision D37).
 
+## Demo login
+
+- **Gate.** Everything except the login page and public clip links needs a login. Signed-out visits to `/` or `/meetings/...` redirect to `/login`, and signed-out calls to `/api/...` get a 401 `{ "error": "Unauthorized" }`.
+- **Sign in.** Use the demo credentials above, or press "Fill demo credentials". A wrong password shows "Incorrect email or password". Signed-in visits to `/login` go to `/meetings`.
+- **Sign out.** The "Sign out" button in the sidebar (and in the mobile menu) clears the session and returns to `/login`.
+- **Public clips.** `/clip/[slug]` pages and `/audio/*` files stay public so shared links work without an account.
+- **Known limit.** This is a demo-only gate: the cookie (`fathom_demo_auth`, 7 days) has a static value, so it is not real security (decision D42).
+
 ## Quality control and manual walkthrough checklist
 
-Run `npm run dev`, open <http://localhost:3000/meetings> and choose **Q4 Launch Readiness Sync**. Each step says what you should see.
+Run `npm run dev`, open <http://localhost:3000/login>, sign in with the demo credentials, then choose **Q4 Launch Readiness Sync**. Each step says what you should see.
+
+### 0. Login
+- [ ] Signed out, open `/meetings`. You land on `/login`.
+- [ ] Enter a wrong password. "Incorrect email or password" appears and you stay on the page.
+- [ ] Press "Fill demo credentials", then "Sign in". You land on `/meetings`.
+- [ ] While signed in, open `/login`. You are sent to `/meetings`.
+- [ ] Press "Sign out" in the sidebar. You land on `/login`, and `/meetings` redirects there again.
+- [ ] Signed out, open a `/clip/...` link. It plays without a login.
 
 ### 1. Meetings list
 - [ ] Four meetings appear as cards with date, length, participants and task progress.

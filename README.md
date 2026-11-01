@@ -2,6 +2,12 @@
 
 A rebuild of [fathom.video](https://fathom.video), the AI meeting notetaker, for the 8x Product Engineer assignment. The recording bot is stubbed: meetings are seeded with real synthesized audio, so the work goes into the workspace: an audio player synced to an interactive transcript, summaries, an action-item board, shareable clips and an AI assistant that has read the meeting.
 
+> **🔑 Demo credentials**
+> Email: `demo@8xfathom.ai`
+> Password: `fathom2026!`
+>
+> The app sits behind a simple demo login (a static cookie, not real security). Shared `/clip/...` links stay public. The login page has a "Fill demo credentials" button.
+
 - **Live app:** <https://8xfanthom.vercel.app/>
 - **Walkthrough video:** `<add Loom link>`
 
