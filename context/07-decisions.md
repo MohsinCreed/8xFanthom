@@ -35,7 +35,7 @@
 | D30 | Chat retry sends `retry: true`; the server reuses the user row left by the failed attempt (same content and pill, last row in the session) instead of inserting a duplicate. D27 (non-modal drawer) confirmed by the user | User review of Phase 3 | Always inserting; client-generated message ids |
 | D31 | ESLint override turns off `no-require-imports` only for `.claude/hooks/**/*.js` (CommonJS hook scripts) | Keeps lint green without changing the logging hook | Converting the hook to ESM |
 | D32 | Action Hub: task state lives in one `useActionItems` hook called by `WorkspaceShell` (so the tab counter and board share it); updates are optimistic, roll back only the patched fields on failure, and ignore superseded responses per item. `PATCH` checks the assignee belongs to the item's meeting. Priority is editable through the API but has no UI | Single source of truth for counters; safe under rapid clicks; keeps scope to what the brief asks | State inside the board component; refetch after each write |
-| D33 | A reload during a pending `PATCH` can lose that change (seen once on a cold dev route). Not yet fixed; candidate fix is `keepalive: true` on the fetch | Found in Phase 4 verification; left for the user to decide | — |
+| D33 | Action item `PATCH` fetch in `useActionItems` sends `keepalive: true` | A reload during a pending save lost the change once in Phase 4 verification (cold dev route); keepalive lets the request finish after navigation. Request bodies are tiny, well under the 64KB keepalive limit | Leaving the gap; `beforeunload` warning |
 
 ## Open items
-- Phase 4: add `keepalive: true` to the action-item `PATCH` fetch (D33)? Also unchecked: contrast of white initials on the seeded speaker colors in the assignee avatars.
+- Unchecked: contrast of white initials on the seeded speaker colors in the assignee avatars.
