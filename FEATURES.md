@@ -66,23 +66,23 @@ Back to the [README](./README.md) for setup. Design decisions are logged in [`co
 
 Shortcuts are ignored while you are typing in a field or holding Ctrl, Cmd or Alt. Press `?` in the workspace, or use the keyboard icon in the player, to see this list in the app.
 
-| Key | Where | What it does |
-|---|---|---|
-| `Space` | Workspace | Play or pause. Ignored when a button, tab, checkbox or slider has focus, and inside the chat log. |
-| `J` | Workspace | Back 10 seconds |
-| `L` | Workspace | Forward 10 seconds (there is no skip key; `J` and `L` are the seek keys) |
-| `/` | Workspace | Focus transcript search, switching to the Transcript tab if needed |
-| `A` | Workspace | Open the Ask AI drawer |
-| `?` | Workspace | Show or hide the shortcuts popover |
-| `Esc` | Search box | Clear the query |
-| `Esc` | Ask AI drawer | Close the drawer and return focus to the Ask AI button |
-| `Enter` | Search box | Next match (first press jumps to the first match) |
-| `Shift+Enter` | Search box | Previous match |
-| `Enter` | Ask AI input | Send the message |
-| `Shift+Enter` | Ask AI input | New line |
-| `←` `↓` / `→` `↑` | Focused timeline | Back or forward 5 seconds |
-| `Home` / `End` | Focused timeline | Start or end of the meeting |
-| `Tab` | Anywhere | The first stop is a "skip to main content" link |
+| Key                           | Where            | What it does                                                                                      |
+| ----------------------------- | ---------------- | ------------------------------------------------------------------------------------------------- |
+| `Space`                     | Workspace        | Play or pause. Ignored when a button, tab, checkbox or slider has focus, and inside the chat log. |
+| `J`                         | Workspace        | Back 10 seconds                                                                                   |
+| `L`                         | Workspace        | Forward 10 seconds (there is no skip key; `J` and `L` are the seek keys)                      |
+| `/`                         | Workspace        | Focus transcript search, switching to the Transcript tab if needed                                |
+| `A`                         | Workspace        | Open the Ask AI drawer                                                                            |
+| `?`                         | Workspace        | Show or hide the shortcuts popover                                                                |
+| `Esc`                       | Search box       | Clear the query                                                                                   |
+| `Esc`                       | Ask AI drawer    | Close the drawer and return focus to the Ask AI button                                            |
+| `Enter`                     | Search box       | Next match (first press jumps to the first match)                                                 |
+| `Shift+Enter`               | Search box       | Previous match                                                                                    |
+| `Enter`                     | Ask AI input     | Send the message                                                                                  |
+| `Shift+Enter`               | Ask AI input     | New line                                                                                          |
+| `←` `↓` / `→` `↑` | Focused timeline | Back or forward 5 seconds                                                                         |
+| `Home` / `End`            | Focused timeline | Start or end of the meeting                                                                       |
+| `Tab`                       | Anywhere         | The first stop is a "skip to main content" link                                                   |
 
 Left and right arrows do not seek globally. They stay free for tabs, menus and popovers (decision D37).
 
@@ -96,9 +96,10 @@ Left and right arrows do not seek globally. They stay free for tabs, menus and p
 
 ## Quality control and manual walkthrough checklist
 
-Run `npm run dev`, open <http://localhost:3000/login>, sign in with the demo credentials, then choose **Q4 Launch Readiness Sync**. Each step says what you should see.
+Run `npm run dev`, open [http://localhost:3000/login](http://localhost:3000/login), sign in with the demo credentials, then choose **Q4 Launch Readiness Sync**. Each step says what you should see.
 
 ### 0. Login
+
 - [ ] Signed out, open `/meetings`. You land on `/login`.
 - [ ] Enter a wrong password. "Incorrect email or password" appears and you stay on the page.
 - [ ] Press "Fill demo credentials", then "Sign in". You land on `/meetings`.
@@ -107,10 +108,12 @@ Run `npm run dev`, open <http://localhost:3000/login>, sign in with the demo cre
 - [ ] Signed out, open a `/clip/...` link. It plays without a login.
 
 ### 1. Meetings list
+
 - [ ] Four meetings appear as cards with date, length, participants and task progress.
 - [ ] Typing in the search box filters the cards.
 
 ### 2. Player and transcript
+
 - [ ] Click a transcript line. Audio plays from that line and the line is highlighted.
 - [ ] Press `Space`. Audio pauses, and pressing it again resumes.
 - [ ] Press `J` then `L`. The time moves back 10 seconds, then forward 10.
@@ -122,10 +125,12 @@ Run `npm run dev`, open <http://localhost:3000/login>, sign in with the demo cre
 - [ ] Switch to Action items and back. The search text and filters are still there.
 
 ### 3. Summary
+
 - [ ] The summary lists decisions, risks and chapters.
 - [ ] Click a chapter or decision. The player seeks to that time.
 
 ### 4. Ask AI
+
 - [ ] Press `A`. The drawer opens and audio keeps playing. Press `Esc`. It closes and focus returns to the Ask AI button.
 - [ ] Click **Extract decisions**. The answer streams in and the question shows the short pill label.
 - [ ] Click a `[mm:ss]` link in the answer. The player seeks.
@@ -133,6 +138,7 @@ Run `npm run dev`, open <http://localhost:3000/login>, sign in with the demo cre
 - [ ] Reload the page and reopen the drawer. The history is still there.
 
 ### 5. Action hub
+
 - [ ] Open Action items. Tasks are split into To do and Done with a progress bar.
 - [ ] Tick a task. It moves to Done at once and the tab count updates.
 - [ ] Change an assignee. The avatar updates and persists after a reload.
@@ -140,6 +146,7 @@ Run `npm run dev`, open <http://localhost:3000/login>, sign in with the demo cre
 - [ ] Untick the task and restore the original assignee so the seed data stays as it was.
 
 ### 6. Clips
+
 - [ ] Hover a transcript line and click "Clip from here". The Clips tab opens with the times filled in and the title focused.
 - [ ] Clear the title and click away. The field says "Add a title for this clip."
 - [ ] Enter an end time more than 120 seconds after the start. The form refuses it.
@@ -150,17 +157,20 @@ Run `npm run dev`, open <http://localhost:3000/login>, sign in with the demo cre
 - [ ] Delete the clip with the inline confirmation. It disappears and the bracket goes.
 
 ### 7. Mobile (375px wide, or browser device mode)
+
 - [ ] The player stays pinned under the top bar while you scroll.
 - [ ] "Jump to transcript" scrolls to the transcript tabs.
 - [ ] Speaker chips scroll sideways on one row, and the page has no sideways scroll.
 - [ ] The Ask AI button never covers the last item in a tab.
 
 ### 8. Errors and edge cases
+
 - [ ] Open `/meetings/not-a-uuid`. A not-found card appears, not a crash.
 - [ ] Tab from the top of any page. The first focus stop is "Skip to main content".
 - [ ] Turn on reduced motion in your OS. Smooth scrolling and animations are minimal.
 
 ### 9. Automated checks
+
 ```bash
 npx tsc --noEmit   # types
 npm run lint       # eslint

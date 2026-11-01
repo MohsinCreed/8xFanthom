@@ -24,9 +24,9 @@ In: meetings list, workspace, player, transcript search, summaries, action board
 Out: real recording bot, auth, calendar integrations, billing, dark mode, team management.
 
 ## Submission checklist
-- [ ] Live Vercel URL works with seed data and no setup
-- [ ] Public GitHub repo with `.agent-logs/` committed (secret-scanned)
-- [ ] Loom walkthrough
-- [ ] Clear commit history
+- [x] Live Vercel URL works with seed data and no setup
+- [x] Public GitHub repo with `.agent-logs/` committed (secret-scanned)
+- [x] Loom walkthrough
+- [x] Clear commit history
 
 See `07-decisions.md` for the rationale behind each choice.
