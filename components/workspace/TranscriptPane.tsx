@@ -12,9 +12,10 @@ export interface TranscriptPaneProps {
   segments: Segment[];
   participants: Participant[];
   className?: string;
+  onClipFromSegment?: (segment: Segment) => void;
 }
 
-export function TranscriptPane({ segments, participants, className }: TranscriptPaneProps) {
+export function TranscriptPane({ segments, participants, className, onClipFromSegment }: TranscriptPaneProps) {
   const { activeIndex, seek } = usePlayer();
   const containerRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
@@ -213,6 +214,7 @@ export function TranscriptPane({ segments, participants, className }: Transcript
                     query={q ? query : undefined}
                     matchActive={i === currentMatch}
                     onSeek={onSeek}
+                    onClip={onClipFromSegment}
                   />
                 </div>
               );

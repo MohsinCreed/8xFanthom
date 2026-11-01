@@ -66,6 +66,39 @@ export interface Clip {
   created_at: string;
 }
 
+/** Body of `POST /api/clips`. Server rules: 0 <= startTime < endTime <= meeting duration, length <= 120s, title 1-80 chars. Response 201: `{ clip: Clip, url: string }` (url is `/clip/<share_slug>`). */
+export interface ClipCreateBody {
+  meetingId: string;
+  title: string;
+  startTime: number;
+  endTime: number;
+}
+
+/** Return value of `useClips` (`lib/useClips.ts`). `create` resolves with the new clip, or null on failure (and sets `error`). `remove` is optimistic and rolls back on failure. */
+export interface ClipsState {
+  clips: Clip[];
+  error: string | null;
+  dismissError: () => void;
+  create: (input: { title: string; startTime: number; endTime: number }) => Promise<Clip | null>;
+  remove: (id: string) => Promise<void>;
+}
+
+/** Range handed from "clip from here" in the transcript to the ClipCreator in the Clips tab. */
+export interface ClipDraft {
+  startTime: number;
+  endTime: number;
+  title?: string;
+}
+
+/** Everything the public `/clip/[slug]` page needs. */
+export interface PublicClipData {
+  clip: Clip;
+  meeting: Meeting;
+  participants: Participant[];
+  /** Segments overlapping the clip range, in order. */
+  segments: Segment[];
+}
+
 export interface Meeting {
   id: string;
   slug: string;

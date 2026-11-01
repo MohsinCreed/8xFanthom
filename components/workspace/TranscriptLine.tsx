@@ -1,6 +1,8 @@
 "use client";
 
 import { memo, type ReactNode } from "react";
+import { Scissors } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { fmtTime } from "@/lib/transcript";
 import { cn } from "@/lib/utils";
 import type { Participant, Segment } from "@/lib/types";
@@ -14,6 +16,7 @@ export interface TranscriptLineProps {
   query?: string;
   matchActive?: boolean;
   onSeek: (t: number) => void;
+  onClip?: (segment: Segment) => void;
 }
 
 function highlight(text: string, query: string | undefined, strong: boolean): ReactNode {
@@ -44,13 +47,14 @@ function TranscriptLineImpl({
   query,
   matchActive,
   onSeek,
+  onClip,
 }: TranscriptLineProps) {
   return (
     <div
       data-seq={segment.seq}
       onClick={() => onSeek(segment.start_time)}
       className={cn(
-        "cursor-pointer rounded-md border-l-[3px] px-3 py-1.5",
+        "group cursor-pointer rounded-md border-l-[3px] px-3 py-1.5",
         showSpeaker && "mt-3",
         active ? "border-primary bg-primary-soft" : "border-transparent hover:bg-muted/50",
         dimmed && "opacity-40",
@@ -77,6 +81,22 @@ function TranscriptLineImpl({
           {fmtTime(segment.start_time)}
         </button>
         <p className="max-w-[70ch] text-[15px] leading-relaxed">{highlight(segment.text, query, !!matchActive)}</p>
+        {onClip && (
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon-xs"
+            aria-label="Clip from here"
+            title="Clip from here"
+            onClick={(e) => {
+              e.stopPropagation();
+              onClip(segment);
+            }}
+            className="ml-auto opacity-0 transition-opacity group-hover:opacity-100 focus-visible:opacity-100"
+          >
+            <Scissors />
+          </Button>
+        )}
       </div>
     </div>
   );
