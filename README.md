@@ -2,6 +2,24 @@
 
 A rebuild of [fathom.video](https://fathom.video), the AI meeting notetaker, for the 8x Product Engineer assignment. The recording bot is stubbed: meetings are seeded with real synthesized audio, so the work goes into the workspace: an audio player synced to an interactive transcript, summaries, an action-item board, shareable clips and an AI assistant that has read the meeting.
 
+📖 **[Explore the full feature list and keyboard shortcuts guide](./FEATURES.md)**, including a step-by-step walkthrough checklist for testing every feature.
+
+## Highlights
+
+- **Synced player and transcript.** Click-to-seek, a speaker-coloured timeline, auto-follow that pauses when you scroll, and search with speaker filters.
+- **AI that has read the meeting.** A non-modal drawer streams Groq answers, with one-click prompts and `[mm:ss]` citations that seek the player.
+- **Action hub.** Optimistic task updates with rollback, reassignment and links back to the moment each task was raised.
+- **Shareable clips.** Time-range clips with a public `/clip/[slug]` page that plays only the clip.
+- **Production care.** Row-level security with writes behind server routes, error and loading states, keyboard and screen-reader support, and a mobile layout with a pinned player.
+
+## Engineering notes
+
+- **Data access split.** Pages read with the publishable key under select-only RLS. Every write goes through a route handler with the secret key, which never reaches the client.
+- **One owner for audio.** `PlayerProvider` owns the `<audio>` element, and everything that jumps in time calls its `seek()`. This keeps transcript, timeline, tasks and clips in sync.
+- **Seed pipeline.** Text becomes audio, audio yields measured timings, and timings become database rows with deterministic ids, so reseeding never breaks shared links.
+- **Documented decisions.** 40 numbered decisions with rationale and rejected alternatives are in [`context/07-decisions.md`](./context/07-decisions.md). The prompts and responses from the AI agent sessions that built this are in `.agent-logs/`.
+- **Checks.** `npx tsc --noEmit`, `npm run lint` and `npm run build` pass. Interactive behaviour was verified in a browser with Playwright after each phase.
+
 Light, warm interface (`#FAF9F6` canvas, deep indigo accent, emerald for done). No dark mode.
 
 ## Stack

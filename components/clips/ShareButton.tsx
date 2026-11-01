@@ -50,8 +50,8 @@ export function ShareButton({ slug, className, label = "Copy link" }: { slug: st
 
   return (
     <Button type="button" variant="outline" size="sm" onClick={onClick} className={cn(className)}>
-      {copied ? <Check className="text-success" aria-hidden /> : <Link2 aria-hidden />}
-      <span aria-live="polite" className={cn(copied && "text-success")}>
+      {copied ? <Check className="text-success-text" aria-hidden /> : <Link2 aria-hidden />}
+      <span aria-live="polite" className={cn(copied && "text-success-text")}>
         {copied ? "Copied" : label}
       </span>
     </Button>

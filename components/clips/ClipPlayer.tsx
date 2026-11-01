@@ -77,7 +77,7 @@ function ClipControls({
   const byId = new Map(participants.map((p) => [p.id, p]));
 
   return (
-    <div>
+    <div role="region" aria-label="Clip player">
       <div className="flex items-center gap-3 rounded-lg border bg-card p-3">
         <Button type="button" size="icon-lg" onClick={onToggle} aria-label={isPlaying ? "Pause" : "Play clip"}>
           {isPlaying ? <Pause /> : <Play />}
@@ -93,7 +93,7 @@ function ClipControls({
           aria-valuetext={`${fmtTime(rel)} of ${fmtTime(length)}`}
           onClick={onBarClick}
           onKeyDown={onBarKey}
-          className="relative h-5 flex-1 cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          className="relative h-8 flex-1 cursor-pointer rounded-sm outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <div className="absolute inset-x-0 top-1/2 h-1.5 -translate-y-1/2 rounded-full bg-muted">
             <div className="h-full rounded-full bg-primary" style={{ width: `${(rel / length) * 100}%` }} />
@@ -109,7 +109,10 @@ function ClipControls({
       )}
 
       <p className="mt-6 text-sm text-muted-foreground">Timestamps are from the full meeting.</p>
-      <div className="mt-3" aria-label="Clip transcript">
+      <div className="mt-3" role="group" aria-label="Clip transcript">
+        {segments.length === 0 && (
+          <p className="text-sm text-muted-foreground">No transcript for this clip.</p>
+        )}
         {segments.map((seg, i) => {
           const p = byId.get(seg.participant_id);
           const showSpeaker = i === 0 || segments[i - 1].participant_id !== seg.participant_id;
@@ -142,7 +145,7 @@ function ClipControls({
                     e.stopPropagation();
                     jump();
                   }}
-                  className="tnum mt-0.5 shrink-0 rounded-sm text-xs leading-relaxed text-muted-foreground hover:text-primary"
+                  className="tnum -mx-2 -my-1.5 mt-0 shrink-0 rounded-sm px-2 py-2 text-xs leading-relaxed text-muted-foreground hover:text-primary"
                 >
                   {fmtTime(seg.start_time)}
                 </button>

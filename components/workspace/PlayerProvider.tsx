@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 import { findActiveIndex } from "@/lib/transcript";
+import { isInteractiveTarget, isTypingTarget } from "@/lib/utils";
 import type { Segment } from "@/lib/types";
 
 export interface PlayerApi {
@@ -43,12 +44,6 @@ interface PlayerProviderProps {
   duration: number;
   segments: Segment[];
   children: ReactNode;
-}
-
-function isEditable(el: EventTarget | null): boolean {
-  if (!(el instanceof HTMLElement)) return false;
-  const tag = el.tagName;
-  return tag === "INPUT" || tag === "TEXTAREA" || tag === "SELECT" || el.isContentEditable;
 }
 
 export function PlayerProvider({ src, duration: durationProp, segments, children }: PlayerProviderProps) {
@@ -217,16 +212,18 @@ export function PlayerProvider({ src, duration: durationProp, segments, children
   // Keyboard shortcuts
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if (e.defaultPrevented) return;
       if (e.metaKey || e.ctrlKey || e.altKey) return;
-      if (isEditable(e.target)) return;
-      const el = e.target instanceof HTMLElement ? e.target : null;
-      const inSlider = !!el?.closest('[role="slider"]');
+      if (isTypingTarget(e.target)) return;
       switch (e.key) {
-        case " ":
-          if (!inSlider && el && (el.closest("button") || el.closest("a"))) return;
+        case " ": {
+          if (e.repeat) return;
+          if (isInteractiveTarget(e.target)) return;
+          if (e.target instanceof HTMLElement && e.target.closest('[role="log"]')) return;
           e.preventDefault();
           toggle();
           break;
+        }
         case "j":
         case "J":
           skip(-10);
@@ -234,14 +231,6 @@ export function PlayerProvider({ src, duration: durationProp, segments, children
         case "l":
         case "L":
           skip(10);
-          break;
-        case "ArrowLeft":
-          if (inSlider) return;
-          skip(-5);
-          break;
-        case "ArrowRight":
-          if (inSlider) return;
-          skip(5);
           break;
       }
     };

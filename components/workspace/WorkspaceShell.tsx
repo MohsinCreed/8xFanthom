@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import type { ClipDraft, ClipsState, MeetingWorkspaceData, Segment } from "@/lib/types";
 import { AskAiButton, ChatDrawer } from "./ChatDrawer";
 import { PlayerProvider, usePlayer } from "./PlayerProvider";
@@ -23,6 +23,13 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
   const [chatOpen, setChatOpen] = useState(false);
   const [tab, setTab] = useState("transcript");
   const [draft, setDraft] = useState<ClipDraft | null>(null);
+  const rightRef = useRef<HTMLElement>(null);
+
+  function jumpToTranscript() {
+    setTab("transcript");
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    rightRef.current?.scrollIntoView({ block: "start", behavior: reduce ? "auto" : "smooth" });
+  }
 
   // "Clip from here": prefill the creator with the line plus a short lead-out, then show it.
   function clipFromSegment(segment: Segment) {
@@ -32,16 +39,20 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
       title: segment.text.slice(0, 60).trim(),
     });
     setTab("clips");
+    // The clips tab mounts on the next render; focus the title once it exists.
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => document.getElementById("clip-title")?.focus()),
+    );
   }
 
   return (
     <PlayerProvider src={meeting.audio_url} duration={meeting.duration} segments={segments}>
       <div className="lg:grid lg:h-dvh lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:overflow-hidden">
-        <section className="min-w-0 lg:overflow-y-auto" aria-label="Recording and summary">
+        <section className="min-w-0 max-lg:contents lg:overflow-y-auto" aria-label="Recording and summary">
           <div className="px-5 pt-6 lg:px-10 lg:pt-8">
-            <WorkspaceHeader meeting={meeting} participants={participants} />
+            <WorkspaceHeader meeting={meeting} participants={participants} onJumpToTranscript={jumpToTranscript} />
           </div>
-          <div className="sticky top-0 z-20 bg-background/95 px-5 py-4 backdrop-blur lg:px-10">
+          <div className="sticky top-14 z-20 bg-background/95 px-5 py-2 backdrop-blur lg:top-0 lg:px-10 lg:py-4">
             <AudioPlayer
               segments={segments}
               participants={participants}
@@ -55,7 +66,8 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
         </section>
 
         <section
-          className="flex min-h-[70dvh] min-w-0 flex-col border-t border-border bg-card lg:min-h-0 lg:border-l lg:border-t-0"
+          ref={rightRef}
+          className="flex min-h-[70dvh] scroll-mt-40 lg:scroll-mt-0 min-w-0 flex-col border-t border-border bg-card lg:min-h-0 lg:border-l lg:border-t-0"
           aria-label="Transcript and tasks"
         >
           <Tabs value={tab} onValueChange={setTab} className="flex min-h-0 flex-1 flex-col gap-0">
@@ -72,18 +84,19 @@ export function WorkspaceShell({ data }: { data: MeetingWorkspaceData }) {
                 <span className="tnum ml-1.5 text-xs text-muted-foreground">{clipsState.clips.length}</span>
               </TabsTrigger>
             </TabsList>
-            <TabsContent value="transcript" className="min-h-0 flex-1">
+            <TabsContent value="transcript" forceMount className="min-h-0 flex-1 data-[state=inactive]:hidden">
               <TranscriptPane
                 segments={segments}
                 participants={participants}
                 onClipFromSegment={clipFromSegment}
-                className="h-full max-h-[75dvh] lg:max-h-none"
+                className="h-[calc(100dvh-14rem)] min-h-80 lg:h-full lg:min-h-0"
+                onRequestSearchFocus={() => setTab("transcript")}
               />
             </TabsContent>
-            <TabsContent value="actions" className="overflow-y-auto">
+            <TabsContent value="actions" className="overflow-y-auto pb-40 lg:pb-28">
               <ActionBoard state={actionState} participants={participants} />
             </TabsContent>
-            <TabsContent value="clips" className="overflow-y-auto">
+            <TabsContent value="clips" className="overflow-y-auto pb-40 lg:pb-28">
               <ClipsTab state={clipsState} draft={draft} />
             </TabsContent>
           </Tabs>

@@ -6,6 +6,7 @@ import { ArrowUp, Sparkles, Square, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "cn";
+import { isTypingTarget } from "@/lib/utils";
 import { useChat } from "@/lib/useChat";
 import { PILLS, getPill } from "@/lib/prompts";
 import { usePlayer } from "./PlayerProvider";
@@ -14,9 +15,7 @@ import { ChatMessageBody } from "./ChatMessageBody";
 const MAX_CHARS = 2000;
 const FOLLOW_THRESHOLD = 48;
 
-function isEditable(t: EventTarget | null) {
-  return t instanceof HTMLElement && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable);
-}
+const ASK_AI_ID = "ask-ai-button";
 
 /** Floating "Ask AI" button plus the `A` shortcut. Render next to ChatDrawer inside the workspace. */
 export function AskAiButton({ open, onOpenChange }: { open: boolean; onOpenChange: (o: boolean) => void }) {
@@ -24,7 +23,9 @@ export function AskAiButton({ open, onOpenChange }: { open: boolean; onOpenChang
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== "a" && e.key !== "A") return;
       if (e.metaKey || e.ctrlKey || e.altKey || e.shiftKey || e.repeat) return;
-      if (isEditable(e.target)) return;
+      if (e.defaultPrevented) return;
+      if (isTypingTarget(e.target)) return;
+      if (e.target instanceof HTMLElement && e.target.closest('[role="dialog"]')) return;
       e.preventDefault();
       onOpenChange(!open);
     };
@@ -32,13 +33,15 @@ export function AskAiButton({ open, onOpenChange }: { open: boolean; onOpenChang
     return () => window.removeEventListener("keydown", onKey);
   }, [open, onOpenChange]);
 
-  if (open) return null;
+  // Stays mounted while the drawer is open so focus can return to it on close.
   return (
     <Button
+      id={ASK_AI_ID}
       type="button"
+      hidden={open}
       onClick={() => onOpenChange(true)}
       aria-keyshortcuts="A"
-      className="fixed bottom-5 right-5 z-40 h-10 gap-2 rounded-md px-4 lg:bottom-6 lg:right-6"
+      className="fixed bottom-5 right-5 z-40 h-10 gap-2 rounded-md px-4 max-lg:bottom-20 lg:bottom-6 lg:right-6"
     >
       <Sparkles aria-hidden className="size-4" />
       Ask AI
@@ -93,6 +96,19 @@ export function ChatDrawer({
     if (open && !streaming && status !== "loading") inputRef.current?.focus({ preventScroll: true });
   }, [streaming, status, open]);
 
+  // Announce completion of a streamed reply for screen readers (the log itself stays aria-live off).
+  const [announce, setAnnounce] = useState("");
+  const wasStreaming = useRef(false);
+  useEffect(() => {
+    if (wasStreaming.current && !streaming && !error) {
+      setAnnounce("Reply ready");
+      const t = setTimeout(() => setAnnounce(""), 3000);
+      wasStreaming.current = streaming;
+      return () => clearTimeout(t);
+    }
+    wasStreaming.current = streaming;
+  }, [streaming, error]);
+
   const submit = () => {
     const text = draft.trim();
     if (!text || streaming || status === "loading") return;
@@ -119,6 +135,10 @@ export function ChatDrawer({
             e.preventDefault();
             inputRef.current?.focus({ preventScroll: true });
           }}
+          onCloseAutoFocus={(e) => {
+            e.preventDefault();
+            document.getElementById(ASK_AI_ID)?.focus({ preventScroll: true });
+          }}
           // Non-modal: clicking the player or transcript must not close the drawer.
           onInteractOutside={(e) => e.preventDefault()}
           className="fixed inset-y-0 right-0 z-50 flex w-full flex-col border-l border-border bg-background text-sm text-foreground outline-none duration-200 data-[state=open]:animate-in data-[state=open]:slide-in-from-right-10 data-[state=open]:fade-in-0 data-[state=closed]:animate-out data-[state=closed]:slide-out-to-right-10 data-[state=closed]:fade-out-0 lg:w-[420px]"
@@ -131,11 +151,15 @@ export function ChatDrawer({
               </DialogPrimitive.Title>
             </div>
             <DialogPrimitive.Close asChild>
-              <Button type="button" variant="ghost" size="icon-sm" aria-label="Close chat">
+              <Button type="button" variant="ghost" size="icon-sm" aria-label="Close chat" className="max-md:size-10">
                 <X aria-hidden />
               </Button>
             </DialogPrimitive.Close>
           </header>
+
+          <p role="status" className="sr-only">
+            {announce}
+          </p>
 
           <div
             ref={listRef}
@@ -208,7 +232,7 @@ export function ChatDrawer({
                   type="button"
                   disabled={blocked}
                   onClick={() => sendPill(p.id, p.prompt)}
-                  className="rounded-md border border-border bg-background px-2.5 py-1 text-xs font-medium text-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50"
+                  className="rounded-md border border-border bg-background px-2.5 py-1 text-xs max-md:min-h-9 font-medium text-foreground transition-colors hover:border-primary/40 hover:bg-primary-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50"
                 >
                   {p.label}
                 </button>

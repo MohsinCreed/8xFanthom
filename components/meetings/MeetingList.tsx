@@ -5,6 +5,7 @@ import { MeetingRow } from "@/components/meetings/MeetingRow";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import type { MeetingListItem } from "@/lib/types";
+import { isTypingTarget } from "@/lib/utils";
 
 interface MeetingListProps {
   meetings: MeetingListItem[];
@@ -18,13 +19,7 @@ export function MeetingList({ meetings }: MeetingListProps) {
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
       if (e.key !== "/" || e.metaKey || e.ctrlKey || e.altKey) return;
-      const target = e.target as HTMLElement | null;
-      if (
-        target &&
-        (target.isContentEditable || ["INPUT", "TEXTAREA", "SELECT"].includes(target.tagName))
-      ) {
-        return;
-      }
+      if (isTypingTarget(e.target)) return;
       e.preventDefault();
       inputRef.current?.focus();
       inputRef.current?.select();

@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { getReadClient } from "./supabase/server";
 import type {
   ActionItem, Clip, Meeting, MeetingListItem, MeetingWorkspaceData, Participant, PublicClipData, Segment,
@@ -35,7 +36,11 @@ export async function getMeetings(): Promise<MeetingListItem[]> {
   });
 }
 
-export async function getMeetingWorkspace(id: string): Promise<MeetingWorkspaceData | null> {
+// Postgres rejects non-UUID values for uuid columns (22P02); treat those ids as "not found".
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+export const getMeetingWorkspace = cache(async (id: string): Promise<MeetingWorkspaceData | null> => {
+  if (!UUID_RE.test(id)) return null;
   const db = getReadClient();
   const [m, p, s, a, c] = await Promise.all([
     db.from("meetings").select("*").eq("id", id).maybeSingle(),
@@ -61,9 +66,9 @@ export async function getMeetingWorkspace(id: string): Promise<MeetingWorkspaceD
     })),
     clips: (c.data as Clip[]).map((x) => ({ ...x, start_time: n(x.start_time), end_time: n(x.end_time) })),
   };
-}
+});
 
-export async function getPublicClip(slug: string): Promise<PublicClipData | null> {
+export const getPublicClip = cache(async (slug: string): Promise<PublicClipData | null> => {
   const db = getReadClient();
   const c = await db.from("clips").select("*").eq("share_slug", slug).maybeSingle();
   if (c.error) fail("clip", c.error);
@@ -93,4 +98,4 @@ export async function getPublicClip(slug: string): Promise<PublicClipData | null
     participants: p.data as Participant[],
     segments: (s.data as Segment[]).map((x) => ({ ...x, start_time: n(x.start_time), end_time: n(x.end_time) })),
   };
-}
+});

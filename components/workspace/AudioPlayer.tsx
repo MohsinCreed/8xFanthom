@@ -6,6 +6,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/comp
 import { fmtTime } from "@/lib/transcript";
 import type { Clip, Participant, Segment } from "@/lib/types";
 import { usePlayer } from "./PlayerProvider";
+import { ShortcutHelp } from "./ShortcutHelp";
 import { Timeline } from "./Timeline";
 
 export interface AudioPlayerProps {
@@ -18,7 +19,7 @@ export interface AudioPlayerProps {
 const RATES = [1, 1.25, 1.5, 2];
 
 const iconBtn =
-  "inline-flex size-9 items-center justify-center rounded-full text-foreground hover:bg-muted disabled:pointer-events-none disabled:opacity-50";
+  "inline-flex size-10 items-center justify-center rounded-full text-foreground hover:bg-muted md:size-9 disabled:pointer-events-none disabled:opacity-50";
 
 export function AudioPlayer({ segments, participants, chapters, clips }: AudioPlayerProps) {
   const { currentTime, duration, isPlaying, rate, activeIndex, error, toggle, skip, setRate } = usePlayer();
@@ -38,13 +39,13 @@ export function AudioPlayer({ segments, participants, chapters, clips }: AudioPl
 
   return (
     <TooltipProvider delayDuration={300}>
-      <div className="rounded-md border border-border bg-card p-3 sm:p-4">
+      <div className="rounded-md border border-border bg-card p-2 lg:p-4">
         {error && (
           <p role="status" className="mb-3 rounded-md bg-muted px-3 py-2 text-sm text-muted-foreground">
             Audio couldn&rsquo;t be loaded. The transcript is still available.
           </p>
         )}
-        <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+        <div className="mb-1.5 flex items-center gap-x-2 flex-nowrap lg:mb-3 lg:gap-x-3">
           <Tooltip>
             <TooltipTrigger asChild>
               <button type="button" aria-label="Back 10 seconds" disabled={disabled} onClick={() => skip(-10)} className={iconBtn}>
@@ -75,20 +76,25 @@ export function AudioPlayer({ segments, participants, chapters, clips }: AudioPl
             aria-label={`Playback speed ${rateLabel}`}
             disabled={disabled}
             onClick={cycleRate}
-            className="tnum inline-flex h-8 min-w-12 items-center justify-center rounded-full border border-border px-3 text-sm font-medium hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
+            className="tnum inline-flex h-10 min-w-12 md:h-8 items-center justify-center rounded-full border border-border px-3 text-sm font-medium hover:bg-muted disabled:pointer-events-none disabled:opacity-50"
           >
             {rateLabel}
           </button>
-          <div className="ml-auto flex min-w-0 items-center gap-3 text-sm">
+          <div className="ml-auto flex min-w-0 items-center gap-3 whitespace-nowrap text-sm">
             <span className="tnum text-muted-foreground">
               <span className="text-foreground">{fmtTime(currentTime)}</span> / {fmtTime(duration)}
             </span>
-            {speaker && (
-              <span className="flex min-w-0 items-center gap-1.5">
-                <span className="size-2 shrink-0 rounded-full" style={{ backgroundColor: speaker.color }} aria-hidden />
-                <span className="truncate font-medium">{speaker.name}</span>
-              </span>
-            )}
+            <span className="hidden h-7 w-36 min-w-0 shrink items-center gap-1.5 lg:flex">
+              {speaker && (
+                <>
+                  <span className="size-2 shrink-0 rounded-full" style={{ backgroundColor: speaker.color }} aria-hidden />
+                  <span className="truncate font-medium">{speaker.name}</span>
+                </>
+              )}
+            </span>
+            <span className="hidden lg:inline-flex">
+              <ShortcutHelp />
+            </span>
           </div>
         </div>
         <Timeline segments={segments} participants={participants} chapters={chapters} clips={clips} />

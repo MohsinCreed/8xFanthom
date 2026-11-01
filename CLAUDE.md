@@ -61,3 +61,4 @@ Whoever starts a process stops it before finishing, whether that is the orchestr
 - Work on the `Dev` branch and commit locally. Do not push to GitHub unless asked; the user pushes and merges to `main`.
 - `.claude/hooks/capture.js` logs every prompt and response to `.agent-logs/` (a graded deliverable); keep `.agent-logs/INDEX.md` mapping sessions to phases, and never put secrets in prompts. `.env*` is gitignored except `.env.example`.
 - Line endings are LF (`.gitattributes`).
+- `FEATURES.md` is the user-facing feature guide, keyboard shortcuts table and manual QA checklist. Whenever a feature is added, changed or removed (including shortcuts, quoted UI copy in the checklist, and known limits), update `FEATURES.md` in the same change, and sub-agent prompts for feature work say so.

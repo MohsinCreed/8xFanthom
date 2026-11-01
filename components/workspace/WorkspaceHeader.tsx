@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import { ChevronLeft } from "lucide-react";
 import { AvatarStack } from "@/components/meetings/AvatarStack";
@@ -25,9 +27,10 @@ const TIME_FORMAT = new Intl.DateTimeFormat("en-US", {
 interface WorkspaceHeaderProps {
   meeting: Meeting;
   participants: Participant[];
+  onJumpToTranscript?: () => void;
 }
 
-export function WorkspaceHeader({ meeting, participants }: WorkspaceHeaderProps) {
+export function WorkspaceHeader({ meeting, participants, onJumpToTranscript }: WorkspaceHeaderProps) {
   const recorded = new Date(meeting.recorded_at);
   const minutes = Math.max(1, Math.round(meeting.duration / 60));
   const count = participants.length;
@@ -58,6 +61,16 @@ export function WorkspaceHeader({ meeting, participants }: WorkspaceHeaderProps)
           </span>
         </span>
       </div>
+
+      {onJumpToTranscript && (
+        <button
+          type="button"
+          onClick={onJumpToTranscript}
+          className="inline-flex h-10 w-fit items-center rounded-md border border-border bg-secondary px-4 text-sm font-medium text-secondary-foreground outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring lg:hidden"
+        >
+          Jump to transcript
+        </button>
+      )}
     </header>
   );
 }

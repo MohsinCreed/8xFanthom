@@ -32,6 +32,8 @@ export function ClipCreator({ duration, draft, onCreate, onCreated }: ClipCreato
   const [start, setStart] = useState("");
   const [end, setEnd] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [titleTouched, setTitleTouched] = useState(false);
+  const [attempted, setAttempted] = useState(false);
 
   // Re-apply whenever a new draft object arrives; otherwise default to the playhead.
   useEffect(() => {
@@ -62,6 +64,7 @@ export function ClipCreator({ duration, draft, onCreate, onCreated }: ClipCreato
     return null;
   }, [startTime, endTime, duration]);
 
+  const showTitleProblem = !trimmedTitle && (titleTouched || attempted);
   const valid = problem === null && trimmedTitle.length > 0;
   const length = startTime !== null && endTime !== null ? Math.max(0, endTime - startTime) : 0;
 
@@ -71,6 +74,7 @@ export function ClipCreator({ duration, draft, onCreate, onCreated }: ClipCreato
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+    if (!trimmedTitle) setAttempted(true);
     if (!valid || submitting || startTime === null || endTime === null) return;
     setSubmitting(true);
     const clip = await onCreate({ title: trimmedTitle, startTime, endTime });
@@ -78,6 +82,8 @@ export function ClipCreator({ duration, draft, onCreate, onCreated }: ClipCreato
     if (!clip) return;
     const s = Math.floor(currentTime);
     setTitle("");
+    setTitleTouched(false);
+    setAttempted(false);
     setStart(fmtTime(s));
     setEnd(fmtTime(Math.min(s + DEFAULT_CLIP_SECONDS, duration)));
     onCreated?.(clip);
@@ -85,10 +91,10 @@ export function ClipCreator({ duration, draft, onCreate, onCreated }: ClipCreato
 
   return (
     <form onSubmit={submit} className="flex flex-col gap-3 rounded-lg border border-border bg-background p-4">
-      <h3 className="flex items-center gap-2 text-sm font-semibold">
+      <h2 className="flex items-center gap-2 text-sm font-semibold">
         <Scissors className="size-4 text-muted-foreground" aria-hidden />
         Create a clip
-      </h3>
+      </h2>
       <div className="flex flex-col gap-1.5">
         <label htmlFor="clip-title" className="text-sm font-medium">
           Title
@@ -99,13 +105,13 @@ export function ClipCreator({ duration, draft, onCreate, onCreated }: ClipCreato
           maxLength={MAX_TITLE_LENGTH}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="What is this moment about?"
-          aria-describedby={trimmedTitle ? undefined : "clip-title-hint"}
+          onBlur={() => setTitleTouched(true)}
+          aria-invalid={showTitleProblem ? true : undefined}
+          aria-describedby="clip-title-hint"
         />
-        {trimmedTitle ? null : (
-          <p id="clip-title-hint" className="text-sm text-muted-foreground" aria-live="polite">
-            Title required
-          </p>
-        )}
+        <div id="clip-title-hint" role={showTitleProblem ? "alert" : undefined} className="text-sm text-warn empty:hidden">
+          {showTitleProblem ? "Add a title for this clip." : null}
+        </div>
       </div>
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         <TimeField
@@ -166,7 +172,7 @@ function TimeField({ id, label, value, onChange, onUseCurrent }: TimeFieldProps)
           placeholder="0:00"
           className="tnum w-24"
         />
-        <Button type="button" variant="ghost" size="sm" onClick={onUseCurrent}>
+        <Button type="button" variant="outline" size="sm" className="h-9 hover:bg-muted max-md:h-10" onClick={onUseCurrent}>
           Use current time
         </Button>
       </div>

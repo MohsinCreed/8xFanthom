@@ -1,15 +1,18 @@
 import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-export default function NotFound() {
+export default function MeetingNotFound() {
   return (
-    <div className="mx-auto max-w-md px-6 py-24">
-      <h1 className="text-2xl font-semibold">Meeting not found</h1>
-      <p className="mt-2 text-muted-foreground">
-        This meeting doesn&apos;t exist or the link is out of date.
-      </p>
-      <Link href="/meetings" className="mt-6 inline-block font-medium text-primary underline underline-offset-4">
-        Back to all meetings
-      </Link>
+    <div className="flex items-center justify-center px-5 py-16 lg:px-10">
+      <div className="w-full max-w-md rounded-lg border border-border bg-card p-6 text-center sm:p-8">
+        <h1 className="text-2xl font-semibold">Meeting not found</h1>
+        <p className="mt-2 text-muted-foreground">This meeting doesn&apos;t exist or the link is out of date.</p>
+        <div className="mt-6 flex justify-center">
+          <Button asChild>
+            <Link href="/meetings">Go to meetings</Link>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }

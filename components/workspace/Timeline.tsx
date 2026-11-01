@@ -72,15 +72,16 @@ export function Timeline({ segments, participants, chapters, clips }: TimelinePr
     <TooltipProvider delayDuration={100}>
       <div className="w-full select-none">
         {/* chapter ticks */}
-        <div className="relative h-3">
+        <div className="relative h-3 max-lg:hidden">
           {chapters.map((c) => (
             <Tooltip key={`${c.start_time}-${c.title}`}>
               <TooltipTrigger asChild>
                 <button
                   type="button"
+                  tabIndex={-1}
                   aria-label={`Chapter ${c.title}, ${fmtTime(c.start_time)}`}
                   onClick={() => seek(c.start_time)}
-                  className="absolute top-0 -ml-2 flex h-3 w-4 items-end justify-center rounded-sm"
+                  className="absolute top-0 -ml-2 flex h-3 w-4 items-end justify-center rounded-sm before:absolute before:-inset-y-3.5 before:inset-x-0 before:content-['']"
                   style={{ left: pct(c.start_time) }}
                 >
                   <span className="h-2.5 w-px bg-muted-foreground/60" />
@@ -111,7 +112,7 @@ export function Timeline({ segments, participants, chapters, clips }: TimelinePr
           onPointerLeave={() => {
             if (!dragging.current) setHover(null);
           }}
-          className="relative h-10 w-full cursor-pointer touch-none rounded-md bg-muted"
+          className="relative h-7 w-full cursor-pointer lg:h-10 touch-none rounded-md bg-muted"
         >
           <div className="absolute inset-0 overflow-hidden rounded-md">
             {segments.map((s) => (
@@ -153,21 +154,22 @@ export function Timeline({ segments, participants, chapters, clips }: TimelinePr
         </div>
 
         {/* clip brackets */}
-        <div className="relative h-3">
+        <div className="relative h-3 max-lg:h-2">
           {clips.map((c) => (
             <Tooltip key={c.id}>
               <TooltipTrigger asChild>
                 <button
                   type="button"
+                  tabIndex={-1}
                   aria-label={`Clip ${c.title}, ${fmtTime(c.start_time)} to ${fmtTime(c.end_time)}`}
                   onClick={() => seek(c.start_time)}
-                  className="absolute top-0 h-3 min-w-1.5 rounded-sm"
+                  className="absolute top-0 h-3 min-w-1.5 rounded-sm before:absolute before:-inset-y-4 before:inset-x-0 before:content-[''] max-lg:h-2"
                   style={{
                     left: pct(c.start_time),
                     width: `${Math.max(0, ((c.end_time - c.start_time) / total) * 100)}%`,
                   }}
                 >
-                  <span className="absolute inset-x-0 top-0.5 h-1.5 rounded-b-sm border-x-2 border-b-2 border-primary" />
+                  <span className="absolute inset-x-0 top-0.5 h-1.5 max-lg:top-0 rounded-b-sm border-x-2 border-b-2 border-primary" />
                 </button>
               </TooltipTrigger>
               <TooltipContent side="bottom">{c.title}</TooltipContent>

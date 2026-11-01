@@ -42,9 +42,10 @@ export async function POST(request: Request) {
   if (!parsed.success) return json(400, "bad_request", "Invalid request body.");
   const { meetingId, sessionId, message, pill, retry } = parsed.data;
 
-  const db = getAdminClient();
+  let db: ReturnType<typeof getAdminClient>;
   let stream: Awaited<ReturnType<typeof startStream>>;
   try {
+    db = getAdminClient();
     const data = await loadMeetingData(db, meetingId);
     if (!data) return json(404, "not_found", "Meeting not found.");
     let history = await loadHistory(db, meetingId, sessionId);

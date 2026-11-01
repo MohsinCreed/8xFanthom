@@ -15,7 +15,7 @@ const SEVERITY_LABEL: Record<Summary["risks"][number]["severity"], string> = {
 
 const SEVERITY_CLASS: Record<Summary["risks"][number]["severity"], string> = {
   high: "bg-amber-50 text-warn",
-  medium: "bg-amber-50/60 text-warn/80",
+  medium: "bg-amber-50 text-warn",
   low: "bg-muted text-muted-foreground",
 };
 
@@ -27,7 +27,15 @@ interface SummaryPanelProps {
 export function SummaryPanel({ summary }: SummaryPanelProps) {
   const { currentTime, seek } = usePlayer();
 
-  if (!summary) {
+  const empty =
+    !summary ||
+    (!summary.overview &&
+      summary.chapters.length === 0 &&
+      summary.decisions.length === 0 &&
+      summary.risks.length === 0 &&
+      summary.key_topics.length === 0);
+
+  if (!summary || empty) {
     return (
       <div className="flex flex-col gap-1 py-6">
         <p className="font-medium">No summary yet.</p>

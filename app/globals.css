@@ -27,6 +27,7 @@
   --color-destructive: var(--destructive);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
+  --color-success-text: var(--success-text);
   --color-warn: var(--warn);
   --color-border: var(--border);
   --color-input: var(--input);
@@ -65,9 +66,10 @@
   --destructive: #b91c1c;
   --success: #059669;
   --success-soft: #ecfdf5;
+  --success-text: #047857;
   --warn: #b45309;
   --border: #e8e5de;
-  --input: #e8e5de;
+  --input: #9a958b;
   --ring: #4338ca;
   --sidebar: #f5f3ee;
   --sidebar-foreground: #1c1b1a;
@@ -106,6 +108,7 @@
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
