@@ -4,7 +4,7 @@
 - **Styling:** Tailwind CSS + shadcn/ui primitives (tokens in `04-frontend.md`)
 - **Database:** Supabase (PostgreSQL). No Supabase Auth in v1 (see D3).
 - **AI inference:** Groq API, `openai/gpt-oss-120b`, via the `openai` SDK with `baseURL` `https://api.groq.com/openai/v1`
-- **Audio:** pre-generated multi-voice TTS (provider TBC), stitched per meeting, served from `/public/audio`
+- **Audio / TTS:** pre-generated with Microsoft Edge neural voices via `msedge-tts` (zero API key), one distinct voice per speaker, per-segment MP3s stitched into one MP3 per meeting in `/public/audio`; durations measured by our own MP3 frame parser in `scripts/generate-audio.ts`
 - **Validation:** Zod on all route bodies
 - **IDs/slugs:** `nanoid` for clip slugs
 - **Hosting:** Vercel (Node runtime, streaming responses)

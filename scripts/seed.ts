@@ -6,7 +6,7 @@
  * Requires seed/timings/<slug>.json (run scripts/generate-audio.ts first).
  */
 import WebSocket from 'ws';
-(global as any).WebSocket = WebSocket;
+(globalThis as unknown as { WebSocket: unknown }).WebSocket = WebSocket;
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";

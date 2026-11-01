@@ -72,10 +72,9 @@ function run(p) {
   }
 
   const prompts = (body.match(/\[LOG_ENTRY type=PROMPT /g) || []).length;
-  let entry, lastPrompt;
+  let entry;
   if (mode === 'prompt') {
     const num = prompts + 1;
-    lastPrompt = now;
     entry = `\n[LOG_ENTRY type=PROMPT num=${num} session=${short}]\ntimestamp: ${now}\nmodel: ${model}\n\n${p.prompt || ''}\n\n`;
     body += entry;
   } else {
