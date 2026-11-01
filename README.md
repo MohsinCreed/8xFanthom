@@ -2,7 +2,10 @@
 
 A rebuild of [fathom.video](https://fathom.video), the AI meeting notetaker, for the 8x Product Engineer assignment. The recording bot is stubbed: meetings are seeded with real synthesized audio, so the work goes into the workspace: an audio player synced to an interactive transcript, summaries, an action-item board, shareable clips and an AI assistant that has read the meeting.
 
-📖 **[Explore the full feature list and keyboard shortcuts guide](./FEATURES.md)**, including a step-by-step walkthrough checklist for testing every feature.
+- **Live app:** `<add Vercel URL>`
+- **Walkthrough video:** `<add Loom link>`
+
+**[Explore the full feature list and keyboard shortcuts guide](./FEATURES.md)**, including a step-by-step walkthrough checklist for testing every feature.
 
 ## Highlights
 
@@ -54,6 +57,18 @@ npm run dev                  # http://localhost:3000
 2. Seed it: `npm run seed` (add `-- --summary` to regenerate AI summaries with Groq). The seed is idempotent: ids are deterministic, so re-running updates rows instead of duplicating them and shared links stay stable.
 3. The seed content lives in `seed/*.json`: one 8-person hero meeting ("Q4 Launch Readiness Sync", about 13 minutes) and three short meetings.
 4. Audio is already committed in `public/audio/`, with matching timings in `seed/timings/`. To regenerate it after editing a transcript, run `npm run audio` (needs internet, no key). Segment timestamps come from the measured duration of each synthesized segment, so the transcript and the audio stay in sync. Re-run `npm run seed` afterwards.
+
+## Deploy to Vercel
+
+1. Push the repository to GitHub, then in Vercel choose **Add New > Project** and import it. The framework should be detected as Next.js. No `vercel.json` is needed.
+2. Set these environment variables in the project settings. Use the values from your Supabase and Groq dashboards:
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+   - `SUPABASE_SECRET_KEY` (server only)
+   - `GROQ_API_KEY` (server only)
+   - `NEXT_PUBLIC_SITE_URL`: the production URL with no trailing slash, for example `https://<project>.vercel.app`. You can also leave it unset. Do not copy the `http://localhost:3000` value from `.env.example`, or copied clip links will point at localhost.
+3. Deploy the project.
+4. Prepare the production Supabase project once. Apply every file in `supabase/migrations/` in filename order (currently only `0001_init.sql`), then run `npm run seed` against it. The seed reads `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SECRET_KEY` from `.env.local`, so point those at the production project for this run. `GROQ_API_KEY` is only needed for `npm run seed -- --summary` and for the AI chat.
 
 ## Project layout
 

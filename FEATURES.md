@@ -19,7 +19,7 @@ Back to the [README](./README.md) for setup. Design decisions are logged in [`co
 ## Interactive audio and transcript sync
 
 - **Click to seek.** Click any transcript line and the audio jumps there and plays. Summary chapters, decisions, risks, search matches, task source chips and timeline ticks all seek through the same `seek()` call, so the player never drifts.
-- **Speaker bands.** The timeline is coloured by who is speaking. Hovering shows the time and speaker, dragging scrubs, and chapter ticks and clip brackets sit on top of it.
+- **Speaker bands.** The timeline is coloured by who is speaking. Hovering shows the time under the pointer (the current speaker is named in the player header), dragging scrubs, and chapter ticks and clip brackets sit on top of it.
 - **Auto-follow.** The active line is found with a binary search over segment times and kept centred as the audio plays.
 - **Scroll pause.** Scrolling, touching or using the keyboard in the transcript pauses auto-follow. A "Jump to live" button brings it back.
 - **Search and filters.** Search highlights matches, dims other lines and shows "n of m". Enter steps through matches and Shift+Enter goes back. Speaker chips filter the transcript, and both survive switching tabs.
@@ -94,7 +94,7 @@ Run `npm run dev`, open <http://localhost:3000/meetings> and choose **Q4 Launch 
 - [ ] Press `Space`. Audio pauses, and pressing it again resumes.
 - [ ] Press `J` then `L`. The time moves back 10 seconds, then forward 10.
 - [ ] Click the speed button. It cycles 1×, 1.25×, 1.5×, 2×.
-- [ ] Click and drag on the timeline. The audio scrubs and a time and speaker tooltip follows the pointer.
+- [ ] Click and drag on the timeline. The audio scrubs and a time tooltip follows the pointer.
 - [ ] Let it play. The transcript follows. Scroll up and "Jump to live" appears. Click it and following resumes.
 - [ ] Press `/`, type "launch", press `Enter` repeatedly. The counter reads "1 of n", "2 of n" and so on, and the audio seeks to each match.
 - [ ] Click a speaker chip. Other speakers' lines dim. Click "All speakers" to reset.
