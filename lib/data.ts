@@ -1,6 +1,6 @@
 import { getReadClient } from "./supabase/server";
 import type {
-  ActionItem, Clip, Meeting, MeetingListItem, MeetingWorkspaceData, Participant, Segment,
+  ActionItem, Clip, Meeting, MeetingListItem, MeetingWorkspaceData, Participant, PublicClipData, Segment,
 } from "./types";
 
 // NUMERIC columns come back as numbers from PostgREST, but be defensive.
@@ -60,5 +60,37 @@ export async function getMeetingWorkspace(id: string): Promise<MeetingWorkspaceD
       source_time: x.source_time == null ? null : n(x.source_time),
     })),
     clips: (c.data as Clip[]).map((x) => ({ ...x, start_time: n(x.start_time), end_time: n(x.end_time) })),
+  };
+}
+
+export async function getPublicClip(slug: string): Promise<PublicClipData | null> {
+  const db = getReadClient();
+  const c = await db.from("clips").select("*").eq("share_slug", slug).maybeSingle();
+  if (c.error) fail("clip", c.error);
+  if (!c.data) return null;
+  const clip = { ...(c.data as Clip), start_time: n(c.data.start_time), end_time: n(c.data.end_time) };
+
+  const [m, p, s] = await Promise.all([
+    db.from("meetings").select("*").eq("id", clip.meeting_id).maybeSingle(),
+    db.from("participants").select("*").eq("meeting_id", clip.meeting_id),
+    db
+      .from("transcript_segments")
+      .select("id, meeting_id, participant_id, text, start_time, end_time, seq")
+      .eq("meeting_id", clip.meeting_id)
+      .gt("end_time", clip.start_time)
+      .lt("start_time", clip.end_time)
+      .order("start_time"),
+  ]);
+  if (m.error) fail("meeting", m.error);
+  if (!m.data) return null;
+  if (p.error) fail("participants", p.error);
+  if (s.error) fail("segments", s.error);
+
+  const meeting = m.data as Meeting;
+  return {
+    clip,
+    meeting: { ...meeting, duration: n(meeting.duration) },
+    participants: p.data as Participant[],
+    segments: (s.data as Segment[]).map((x) => ({ ...x, start_time: n(x.start_time), end_time: n(x.end_time) })),
   };
 }

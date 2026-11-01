@@ -39,6 +39,8 @@ export function useActionItems(initial: ActionItem[]): ActionItemsState {
           method: "PATCH",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(patch),
+          // Lets the save finish if the page is reloaded or left mid-request.
+          keepalive: true,
         });
         if (!res.ok) throw new Error(`status ${res.status}`);
         const data = (await res.json()) as { item: ActionItem };

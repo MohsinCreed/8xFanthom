@@ -9,4 +9,5 @@ Raw prompt/response logs are written automatically by `.claude/hooks/capture.js`
 
 Later sessions are appended below as phases complete.
 | `2026-10-31_22-58-42_167f6844-…` | Phase 3 | Orchestrator plus Sonnet/Haiku sub-agents: prompts, chat API (Groq SSE, persistence), useChat hook, ChatDrawer, Playwright verification, two bug fixes; workflow codified in CLAUDE.md |
-| `2026-11-01_06-59-46_e781d99c-…` | Phase 4 | Orchestrator plus two Sonnet agents (PATCH route and `useActionItems` hook; Action Hub UI) and a Sonnet Playwright verifier; contract types written before dispatch |
+| `2026-11-01_06-59-46_e781d99c-…` | Phase 4 | Orchestrator plus two Sonnet agents (PATCH route and `useActionItems` hook; Action Hub UI) and a Sonnet Playwright verifier; contract types written before dispatch. Follow-up in the same session: diagnosed a Vercel preview 404 (local production build and `next start` were fine; cause was the Vercel Framework Preset set to Other, fixed in the dashboard), then added `keepalive: true` to the action item save (D33) |
+| `2026-11-01_07-26-10_827995c4-…` | Phase 5 | Orchestrator plus three Sonnet agents (clips API and hook; public clip page and player; creator, list and workspace wiring), one Haiku agent (ShareButton and clip-from-line), and a Sonnet Playwright verifier (10 checks, all passing); contract types written before dispatch |
